@@ -3,6 +3,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy; 
 
 const User = require('../models').Users;
+// const User = require('../models/User)
 
 
 function passwordsMatch(submittedPassword, storedPasswordHash) {
@@ -21,6 +22,23 @@ passport.use(new LocalStrategy({
     passwordField: 'password',
   },
   (email, password, done) => {
+    /* 
+    User.findOne({email: email})
+      .then(user => {
+        if(!user) {
+          console.log('\n\nFailed Login: user does not exist\n\n');
+          return done(null, false, { message: 'Failed Login' });
+        }
+
+        if(passwordsMatch(password, user.password) === false) {
+          console.log('\n\nFailed Login: passwords did not match\n\n');
+          return done(null, false, { message: 'Failed Login' });
+        }
+        console.log('\n\nSuccessful Login\n\n');
+        return done(null, user, { message: 'Successfully Logged In!' });
+      })
+      .catch(err => { return done(err) });
+    */
     User.findOne({ where: { email } })
       .then((user) => {
         if(!user) {

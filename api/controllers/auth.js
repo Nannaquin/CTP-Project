@@ -33,24 +33,14 @@ router.post('/signup', (req, res) => {
         //const message = err["errors"][0]["message"]
         console.log(err)
 
-     /*   let errmsg = "Signup Error" 
-        if(message == "email must be unique") {
-          console.log("Email in use")
-          errmsg = "Email already in use"
-        } else if(message == "username must be unique") {
-          errmsg = "Username already in use"
-        } else if(message == "phonenumber must be unique") {
-          errmsg = "Phone number already in use"
-        } else if(message == "Validation len on password failed") {
-          errmsg = "Password too short."
-        } */
+    
         
         res.status(400).json({ msg: err  });
       });
 //  }
     }
     catch(err) {
-      res.status(400).json({msg: err});
+      res.status(400).json({msg: err})
     }
 });
 
