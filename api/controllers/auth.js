@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Users } = require('../models');
+const User = require('../models/User');
 const validateSignupInput = require("../validation/signup");
 const passport = require('../middlewares/authentication');
 
@@ -8,20 +8,21 @@ const passport = require('../middlewares/authentication');
 router.post('/signup', (req, res) => {
 
   try {
-  console.log("Pre validation")
-  const { isValid, errors } = validateSignupInput(req.body)
+    console.log("Pre validation")
+    console.log(req.body)
+    const { isValid, errors } = validateSignupInput(req.body)
 
-  if(!isValid) {
-    console.log("Errors present in input")
-    throw(errors)
-  }
+    if(!isValid) {
+      console.log("Errors present in input")
+      throw(errors)
+    }
 //  if(req.body.password == req.body.password2) {
     console.log("Passed validations")
-    Users.create({
+    User.create({
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
-      phonenumber: req.body.phonenumber,
+      phone_number: req.body.phonenumber,
       auth_token: req.body.email // do something about this
     })
       .then((user) => {

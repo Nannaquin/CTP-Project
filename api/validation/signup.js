@@ -61,9 +61,11 @@ module.exports = function validateSignupInput(data) {
     } else if (!Validator.isMobilePhone(data.phonenumber)) {
         errors.phonenumber = "Must be a valid phonenumber"
     }
+    
 
-    if(isEmpty(errors)) {
+    if(!isEmpty(errors)) {
         console.log("One or more problems present with input.")
+        console.log(errors)
     }
 
     return {

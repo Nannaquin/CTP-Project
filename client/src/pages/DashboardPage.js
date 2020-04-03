@@ -121,10 +121,11 @@ export default class DashboardPage extends Component {
             <div>
                 <SideBar/>              {/* This is the side bar navbar component */}   
                 <TopBar/>               {/* This is the top bar navbar component it also contains the modal-component*/}    
-                <div className="mt-5">     
-                    <TableLight />
+                <div className="mt-5">  
+                    <TableDark />   
+                    {/*<TableLight />*/}
                 </div>
-                <TableDark />
+                
                 
             </div>
         );
