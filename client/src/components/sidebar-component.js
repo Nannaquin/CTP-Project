@@ -33,7 +33,7 @@ function Navigation(props) {
                                 <a href="/dashboard" className="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border">Perfect Pantry</a>
                                 <div className="bottom-border pb-3">
                                     <img width="80" height="60" className="rounded-circle mr-3" src={Profile_Image} alt="profile"/>
-                                    <a href="/settings" className="text-white">Todd Howard</a>
+                                    <a href="/settings" className="text-white">Joe Everyman</a>
                                 </div>
 
                                 {/* <!--Start of Unordered List --> */}

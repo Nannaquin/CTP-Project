@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Button, Modal} from "react-bootstrap";
 import AddItemPopup from './AddItemPopup';
 
 
@@ -7,13 +8,33 @@ class TableDark extends Component {
         super(props);
         this.state = {
             ingredients: [],
-            showPopup: false
+            show: false,
+            setShow: false,
+            name: "",
+            amount: "",
+            units: "kg"
         }
     }
 
-    invokeAddItemPanel = () => {
+    onChange = e => {
+        this.setState({ [e.target.id]: e.target.value });
+        console.log(this.state)
+    }
+
+    onSubmit = e => {
+        e.preventDefault();
+
+        const newItem = {
+            name: this.state.name,
+            amount: this.state.amount,
+            units: this.state.units
+        };
+    }
+
+    handleShow = () => {
         this.setState({  
-            showPopup: !this.state.showPopup  
+            showPopup: !this.state.showPopup,
+            show: !this.state.show
        });  
     };
 
@@ -110,11 +131,57 @@ class TableDark extends Component {
                          </table>
  
                      </form>
-                     <button onClick={this.invokeAddItemPanel}>Add Item</button>
-                    {this.state.showPopup ? <AddItemPopup>
+                     <button variant="primary" onClick={this.handleShow}>Add Item</button>
 
-                    </AddItemPopup> : null
-                    }
+                    <Modal show={this.state.show} onHide={this.handleShow}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Add an Item</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+
+                            <form className="add-item-form" onSubmit="this.handleFormSubmit">
+                            { /* Item Name, Amount, Units, Expiration Date, Type  */}
+                                <div className="form-group">
+                                    <input type="text" 
+                                    id="name"
+                                    className="form-control rounded-pill form-control-lg" 
+                                    onChange={this.onChange}
+                                    value={this.state.name}
+                                    placeholder="Item Name"/>
+                                </div>
+
+                                {/* Amount */}
+
+                                {/* Units */}
+                                <select value={this.state.units}>
+                                    <option value="kg">Kilograms(kg)</option>
+                                    <option value="lb">Pounds(lb)</option>
+                                    <option value="oz">Ounces(oz)</option>
+                                    <option value="g">Gram(g)</option>
+                                    <option value="qt">Quart(qt)</option>
+                                    <option value="gal">Gallon(GAL)</option>
+                                    <option value="l">Liter(L)</option>
+                                    <option value="fl-oz">Fluid Ounce(FL OZ)</option>
+                                </select>
+
+                                {/* Types */}
+                                {/*this.createCheckboxes()*/}
+
+
+
+
+
+                            </form>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <button variant="secondary" onClick={this.handleShow}>
+                                Close
+                            </button>
+                            <button variant="primary" onClick={this.handleShow}>
+                                Finish
+                            </button>
+                        </Modal.Footer>
+                    </Modal>
                  </div>
 
             </div>
