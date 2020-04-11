@@ -64,7 +64,7 @@ class SignUpPage extends Component {
     render() {
       let error_text = ""
       if (this.state.success) return <Redirect to="/login" />;
-      if (this.state.error) error_text = this.state.errmsg;
+      if (this.state.error) error_text = Object.values(this.state.errmsg);
       return (
             <div>
                 <div className="d-flex justify-content-center align-items-center login-container">

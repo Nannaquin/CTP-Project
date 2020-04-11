@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const { Recipes, Items_Recipes, Items  } = require('../models');
+//const { Recipes, Items_Recipes, Items  } = require('../models');
 
 // This may be tricky depending on how we are handling recipes.
 
+/*
 // @route POST
 // @body {
 //     name: {Type: String},
@@ -20,7 +21,6 @@ router.post('/create'), (req, res) => {
     // Also we would have to parse the hell out of these ingredients to properly determine what theyre talking about.
     // At the very least we could determine what exact ingredients they are, and may be the quantity.
     // Once again, alot of parsing. State could be reflected in the instructions? 
-    /* Ideally we could collect the recipe source too */
 
     // Ensure we have an entry for each required item in the recipe, in the Item table
     // do usual checks ("duplicates or whatever")
@@ -70,5 +70,5 @@ router.delete('/remove'), (req, res) => {
 
     // Return success/fail
 }
-
+*/
 module.exports = router; 

@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const { Users } = require('../models');
+const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 // This is gonna be some Auth heavy stuff
-
+/*
 function passwordsMatch(submittedPassword, storedPasswordHash) {
     return bcrypt.compareSync(submittedPassword, storedPasswordHash);
   }
@@ -126,7 +126,7 @@ router.delete('/users'), (req, res) => {
     })
 }
 
-
+*/
 
 
 
