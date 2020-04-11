@@ -2,7 +2,8 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy; 
 
-const User = require('../models').Users;
+const User = require('../models/User')
+// const User = require('../models/User)
 
 
 function passwordsMatch(submittedPassword, storedPasswordHash) {
@@ -21,7 +22,25 @@ passport.use(new LocalStrategy({
     passwordField: 'password',
   },
   (email, password, done) => {
-    User.findOne({ where: { email } })
+    
+    User.findOne({email: email})
+      .then(user => {
+        if(!user) {
+          console.log('\n\nFailed Login: user does not exist\n\n');
+          return done(null, false, { message: 'Failed Login' });
+        }
+
+        console.log(`sub/saved (${password}/${user.password})`)
+        if(passwordsMatch(password, user.password) === false) {
+          console.log('\n\nFailed Login: passwords did not match\n\n');
+          return done(null, false, { message: 'Failed Login' });
+        }
+        console.log('\n\nSuccessful Login\n\n');
+        return done(null, user, { message: 'Successfully Logged In!' });
+      })
+      .catch(err => { return done(err) });
+    
+    /*User.findOne({ where: { email } })
       .then((user) => {
         if(!user) {
           console.log('\n\nFailed Login: user does not exist\n\n');
@@ -36,16 +55,16 @@ passport.use(new LocalStrategy({
         console.log('\n\nSuccessful Login\n\n');
         return done(null, user, { message: 'Successfully Logged In!' });
       })
-      .catch(err => { return done(err) });
+      .catch(err => { return done(err) }); */
   })
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser((id, done) => {
-  User.findByPk(id)
+  User.findOne({"_id": id})
     .then((user) => {
       if (!user) {
         done(null, false);

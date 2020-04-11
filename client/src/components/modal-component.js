@@ -2,7 +2,6 @@ import React from 'react';
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Tsundere_Meme from '../images/Tsundere-Meme.png';
 
 
 function LogOutModal(props) {
@@ -21,11 +20,6 @@ function LogOutModal(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <h4 className="text-dark">Are you sure? </h4>
-                    <p className="text-dark">
-                    Fine Todd-chan you can leave it's ... it's not like ... 
-                    I ... I need you or anything! "Mr. Everything just Works" ... BAKA! 
-                    </p>
-                    <img className=" img-fluid rounded mt-3" src={Tsundere_Meme} alt="Meme"></img>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className="btn-success" onClick={props.onHide}>Stay Here</Button>

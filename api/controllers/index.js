@@ -10,7 +10,7 @@ const itemsController = require('./items');
 const usersController = require('./users');
 const recipesController = require('./recipes');
 
-const postsController = require('./posts.js');
+//const postsController = require('./posts.js');
 const appConfigController = require('./appConfig.js');
 
 // Mount each controller under a specific route. These
@@ -20,7 +20,7 @@ router.use('/other', otherController);
 router.use('/items', itemsController);
 router.use('/users', usersController);
 router.use('/recipes', recipesController);
-router.use('/posts', postsController);
+//router.use('/posts', postsController);
 router.use('/application-configuration', appConfigController);
 
 
