@@ -2,7 +2,33 @@ import React, {Component} from 'react';
 import {Button, Modal} from "react-bootstrap";
 import AddItemPopup from './AddItemPopup';
 
+const items = [{"number":"1", "name":"Carrots", "price":"5.99", "exp_date":"10/23/2019", "status":"Good"},
+{"number":"2", "name":"Olives", "price":"7.99", "exp_date":"12/17/2019", "status":"Good"},
+{"number":"3", "name":"Salmon", "price":"9.99", "exp_date":"12/07/2019", "status":"Expired"},
+{"number":"4", "name":"Eggs", "price":"3.50", "exp_date":"10/05/2019", "status":"Good"},
+{"number":"5", "name":"Milk", "price":"3.75", "exp_date":"12/05/2019", "status":"Close"} ]
+/*const items = [["1", "Carrots", "5.99", "10/23/2019", "Good"],
+            ["2", "Olives", "7.99", "12/17/2019", "Good"],
+            ["3", "Salmon", "9.99", "12/07/2019", "Expired"],
+            ["4", "Eggs", "3.50", "10/05/2019", "Good"],
+            ["5", "Milk", "3.75", "12/05/2019", "Close"]]; */
 
+function Record({number, name, price, exp_date, status}) {
+    /* Set color of expiration date color before returning */
+    let cn = "";
+    if(status == 'Good') { cn = "badge badge-success w-75"; }
+    else if(status == 'Close') { cn = "badge badge-warning w-75"; }
+    else if(status == 'Expired') { cn = "badge badge-danger w-75"; }
+    return(
+        <tr>
+            <th>{number}</th>
+            <td>{name}</td>
+            <td>${price}</td>
+            <td>{exp_date}</td>
+            <td><span className={cn}>{status}</span></td>
+        </tr>
+    );
+}
 class TableDark extends Component {
     constructor(props){
         super(props);
@@ -31,14 +57,61 @@ class TableDark extends Component {
         };
     }
 
+    onType = e => {
+        // For auto completion
+    }
+
     handleShow = () => {
         this.setState({  
             showPopup: !this.state.showPopup,
             show: !this.state.show
        });  
     };
+/*
+    record(id, name, quantity, units, exp_date) {
+        // Set color of expiration date color before returning 
+
+        return(
+            <tr>
+                <th>{id}</th>
+                <td>{name}</td>
+                <td>{quantity} {units}</td>
+                <td color={expr_color}>{exp_date}</td>
+            </tr>
+        );
+    }
+*/
+
+    record(num, name, price, exp_date, status) {
+        /* Set color of expiration date color before returning */
+        let cn = "";
+        if(status == 'Good') { cn = "badge badge-success w-75"; }
+        else if(status == 'Close') { cn = "badge badge-warning w-75"; }
+        else if(status == 'Expired') { cn = "badge badge-danger w-75"; }
+        return(
+            <tr>
+                <th>{num}</th>
+                <td>{name}</td>
+                <td>${price}</td>
+                <td>{exp_date}</td>
+                <td><span className={cn}>{status}</span></td>
+            </tr>
+        );
+    }
 
     render() {
+        let it = undefined;
+        if (items != null) {
+            it = items.map((record, ii) => {
+                console.log(record);
+                return(<Record number={record.number}
+                                name={record.name}
+                                price={record.price}
+                                exp_date={record.exp_date}
+                                status={record.status}
+                                key={ii}/>);
+            })
+        } else it = "No items recorded yet."
         return (
             <div>
                  <div className="col-xl-10 col-lg-9 col-md-8 ml-auto">
@@ -62,71 +135,8 @@ class TableDark extends Component {
                              </thead>
                              
                              <tbody>
-                                 
-                                 <tr>
-                                     <th>1</th>
-                                     <td>Carrots</td>
-                                     <td>$5.99</td>
-                                     <td>10/23/2019</td>
-                                     <td><span className="badge badge-success w-75">Good</span></td>
-                                 </tr>
-                                 
-                                 <tr>
-                                     <th>2</th>
-                                     <td>Olives</td>
-                                     <td>$7.99</td>
-                                     <td>12/17/2019</td>
-                                     <td><span className="badge badge-success w-75">Good</span></td>
-                                 </tr>
- 
-                                 <tr>
-                                     <th>3</th>
-                                     <td>Salmon</td>
-                                     <td>$9.99</td>
-                                     <td>12/07/2019</td>
-                                     <td><span className="badge badge-danger w-75">Expired</span></td>
-                                 </tr>
- 
-                                 <tr>
-                                     <th>4</th>
-                                     <td>Eggs</td>
-                                     <td>$3.50</td>
-                                     <td>10/05/2019</td>
-                                     <td><span className="badge badge-success w-75">Good</span></td>
-                                 </tr>
- 
-                                 <tr>
-                                     <th>5</th>
-                                     <td>Milk</td>
-                                     <td>$3.75</td>
-                                     <td>12/05/2019</td>
-                                     <td><span className="badge badge-warning w-75">close</span></td>
-                                 </tr>
- 
-                                 <tr>
-                                     <th>6</th>
-                                     <td>Mozarella Cheese</td>
-                                     <td>$14.99</td>
-                                     <td>11/05/2019</td>
-                                     <td><span className="badge badge-warning w-75">close</span></td>
-                                 </tr>
- 
-                                 <tr>
-                                     <th>7</th>
-                                     <td>Olive Oil</td>
-                                     <td>$35</td>
-                                     <td>12/05/2019</td>
-                                     <td><span className="badge badge-success w-75">Good</span></td>
-                                 </tr>
- 
-                                 <tr>
-                                     <th>8</th>
-                                     <td>Cereal</td>
-                                     <td>$12</td>
-                                     <td>12/09/2019</td>
-                                     <td><span className="badge badge-success w-75">Good</span></td>
-                                 </tr>
- 
+                                {it}
+                            
                              </tbody>
                          </table>
  
