@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Modal} from "react-bootstrap";
 import AddItemPopup from './AddItemPopup';
+import axios from 'axios'; 
 
 const items = [{"number":"1", "name":"Carrots", "price":"5.99", "exp_date":"10/23/2019", "status":"Good"},
 {"number":"2", "name":"Olives", "price":"7.99", "exp_date":"12/17/2019", "status":"Good"},
@@ -38,8 +39,24 @@ class TableDark extends Component {
             setShow: false,
             name: "",
             amount: "",
-            units: "kg"
+            units: "kg",
+            timeToUpdate: false
         }
+    }
+
+    componentDidMount() {
+
+        axios.get('api/items/items', {
+            params: {user_id: localStorage.getItem('user_id')}
+        })
+        .then(res => {
+            console.log(res)
+            //this.setState({ingredients: })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        //this.setState({ ingredients: })
     }
 
     onChange = e => {
@@ -50,11 +67,34 @@ class TableDark extends Component {
     onSubmit = e => {
         e.preventDefault();
 
-        const newItem = {
+        /*const newItem = {
             name: this.state.name,
             amount: this.state.amount,
             units: this.state.units
-        };
+        }; */
+        const newItem = {
+            number: "X",
+            name: this.state.name,
+            price: "4.99",
+            exp_date: "04/16/2020",
+            status: "Good" 
+        }
+        items.push(newItem)
+
+        this.setState ({
+            name: ""
+        });
+        this.handleShow();
+    }
+
+    // Call DB API to get new list of user's ingredients
+    updateList = () => {
+        
+
+
+        this.setState ({
+            timeToUpdate: false
+        })
     }
 
     onType = e => {
@@ -81,9 +121,9 @@ class TableDark extends Component {
         );
     }
 */
-
+/*
     record(num, name, price, exp_date, status) {
-        /* Set color of expiration date color before returning */
+        // Set color of expiration date color before returning 
         let cn = "";
         if(status == 'Good') { cn = "badge badge-success w-75"; }
         else if(status == 'Close') { cn = "badge badge-warning w-75"; }
@@ -97,7 +137,7 @@ class TableDark extends Component {
                 <td><span className={cn}>{status}</span></td>
             </tr>
         );
-    }
+    } */
 
     render() {
         let it = undefined;
@@ -141,7 +181,7 @@ class TableDark extends Component {
                          </table>
  
                      </form>
-                     <button variant="primary" onClick={this.handleShow}>Add Item</button>
+                     <button variant="primary" className="mx-auto" onClick={this.handleShow}>Add Item</button>
 
                     <Modal show={this.state.show} onHide={this.handleShow}>
                         <Modal.Header closeButton>
@@ -187,7 +227,7 @@ class TableDark extends Component {
                             <button variant="secondary" onClick={this.handleShow}>
                                 Close
                             </button>
-                            <button variant="primary" onClick={this.handleShow}>
+                            <button variant="primary" onClick={ (e) => this.onSubmit(e) }>
                                 Finish
                             </button>
                         </Modal.Footer>

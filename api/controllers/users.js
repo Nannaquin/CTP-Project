@@ -3,7 +3,7 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 // This is gonna be some Auth heavy stuff
-/*
+
 function passwordsMatch(submittedPassword, storedPasswordHash) {
     return bcrypt.compareSync(submittedPassword, storedPasswordHash);
   }
@@ -17,16 +17,22 @@ function passwordsMatch(submittedPassword, storedPasswordHash) {
 //     
 // }
 // @desc  Creates a user based on the supplied info
-router.post('/users'), (req, res) => {
+router.post('/users', (req, res) => {
     // Sign up kinda already does this. Including error handing, reporting on validation etc
 
-    Users.create({
+    User.create({
         username: req.body.username,
         email: req.body.email,
         password: req.body.password,
         phonenumber: req.body.phonenumber,
       })
-}
+      .then(user => {
+          res.status(200).json({msg: "This shouldn't be called. But it worked?"})
+      })
+      .catch(err => {
+          res.status(400).json({msg: "Whether or not you connecteded, this sint meant do do anything."})
+      })
+});
 
 // @route PATCH
 // @body {
@@ -40,12 +46,13 @@ router.post('/users'), (req, res) => {
 //     
 // }
 // @desc  Update one or more part of a user's information
-router.patch('/users'), (req, res) => {
+router.patch('/users', (req, res) => {
     
+    const {password, username, email, new_password, phone_number}  = req.params;
     // if password matches password
-    Users.findByPk(req.body.id)
+    User.findOne({_id: req.body.id})
     .then(user => {
-        if(passwordsMatch(res.password, user.passwordHash)) {
+        if(passwordsMatch(password, user.passwordHash)) {
             if(req.body.username) {
                 user.username = username;
             }
@@ -55,27 +62,26 @@ router.patch('/users'), (req, res) => {
             if(req.body.new_password) {
                 user.password = new_password;
             }
-            if(req.body.phonenumber) {
-                user.phonenumber = phonenumber;
+            if(req.body.phone_number) {
+                user.phone_number = phone_number;
             }
         }
         else {
             throw new error("Wrong Password")
         }
+
+        user.save()
     })
     .then(r => {
         res.status(200).json({msg: "Successful Update"})
     })
     .catch(err => {
-        if(err = "Wrong Password") {
-            res.status(401).json({msg: err});
-        }
-        else {
-            res.status(400).json({msg: err});
-        }
+        if(err = "Wrong Password")  res.status(401).json({msg: err});
+        else  res.status(400).json({msg: err});
+        
     })
     
-}
+});
 
 // @route GET
 // @body {
@@ -83,22 +89,22 @@ router.patch('/users'), (req, res) => {
 //     
 // }
 // @desc  Get a users info
-router.get('/users/:id'), (req, res) => {
+router.get('/users/:id', (req, res) => {
 
     const { id } = req.params;
     // Use ID to pull
-    Users.findByPk(id) 
+    User.findOne({_id: id}) 
     .then(user => {
-
+        console.log(user)
         // === CONCERN ===
         // Is this some kind of security concern? Just taking
         // the id and giving back all but the user's password?
         // In other words, should there be some o- wait nevermind
         const retUser = {
-            "id": user.id,
+            "id": user._id,
             "username": user.username,
             "email": user.email,
-            "phonenumber": user.phonenumber
+            "phonenumber": user.phone_number
         };
 
         res.status(200).json({user: retUser});
@@ -106,7 +112,7 @@ router.get('/users/:id'), (req, res) => {
     .catch(err => {
         res.status(400).json({err: err, msg: "User Info cannot be retrieved."})
     })
-}
+});
 
 // @route DELETE
 // @body {
@@ -114,19 +120,21 @@ router.get('/users/:id'), (req, res) => {
 //      password: {Type: String}
 // }
 // @desc Delete the user's account.
-router.delete('/users'), (req, res) => {
-
-    Users.findByPk(req.body.id)
+router.delete('/users', (req, res) => {
+    const id = req.params.id;
+    User.findOne({_id: id})
     .then(user => {
-        if(passwordsMatch(req.body.password, user.passwordHash)) { }
+        if(passwordsMatch(req.params.password, user.passwordHash)) { 
+            // do something.
+        }
     })
     .catch(err => {
         console.log(err)
         res.status(400).json({msg: "Authentication failure or some other"})
     })
-}
+});
 
-*/
+//
 
 
 

@@ -14,33 +14,21 @@ import Loading from '../components/Loading';
 import IngredientsListPage from '../components/ingredients-component';
 
 
-const Ingredients = props => (
-    <tr>
-      <td>{props.ingredients.name}</td>
-      <td>{props.ingredients.quantity}</td>
-      <td>{new Date(props.medication.expireDate).toLocaleDateString()}</td>
-      <td>
-        <Link to={{pathname: "/edit/"+props.ingredients._id, state : {id: props.ingredients._id}}}>edit</Link> | <a href="#" onClick={() => { props.deleteItems(props.ingredients._id) }}>delete</a>
-      </td>
-      <td>{props.ingredients._id}</td>
-    </tr>
-  )
 
 
 export default class DashboardPage extends Component {
     constructor(props) {
         super(props);
-
-        this.deleteItems = this.deleteItems.bind(this)
+        console.log(props)
 
 
         this.state = { 
             Loggedin: true, 
             AuthToken: "Authentication Token",
             username: "",
-
-            items: []
+            id: "",
         };
+        console.log("Post state setting")
     }
 
     // Get Token from database store it here, if the user is logged in for too long, 
@@ -60,53 +48,11 @@ export default class DashboardPage extends Component {
         }) */
     }
 
-
-
-    deleteItems(id) {
-    axios.delete('api/items/delete/'+id, {
-        "headers" : {"authorization" : "bearer " + localStorage.getItem("token")}
-    })
-        .then(response => { console.log(response.data)});
-
-    this.setState({
-        items: this.state.items.filter(el => el._id !== id)
-    })
-    }
-
-
-    getIngredients(id){
-        axios.get('/api/items/items/'+id, {
-
-        })
-            .then( res => {
-                this.setState ({
-                    items: this.items,          // Overwriting the empty array ...  
-                })
-            })
-    }
-
-    ingredientsList() {
-
-    }
-
     onSubmit(e) {
         console.log("This function has been called! ... ");
         console.log("===================================");
 
         e.preventDefault();
-
-        const pantryTable = document.getElementById("Ingredients");        
-        let formData = new FormData(pantryTable);
-        let items = {};
-        for (let key of formData.keys()){
-            items[key] = formData.get(key);
-        }
-        
-        var value = this.value;
-        console.log(value);
-
-        console.log(formData[0]);
-
     }
 
 

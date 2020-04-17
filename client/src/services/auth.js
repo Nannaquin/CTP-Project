@@ -16,6 +16,7 @@ const auth = {
         }
       })
         .then((response) => {
+          console.log(response)
           if(!response.ok) {
             throw new Error('Login Failed');
           }
@@ -23,6 +24,8 @@ const auth = {
           return response.json();
         })
         .then((body) => {
+
+          localStorage.setItem('user_id', body._id )
           this.isAuthenticated = true;
           return body;
         });
@@ -38,7 +41,7 @@ const auth = {
           if(!response.ok) {
             throw new Error('Logout Failed');
           }
-  
+          localStorage.removeItem('user_id')
           return response.json();
         })
         .then((body) => {
