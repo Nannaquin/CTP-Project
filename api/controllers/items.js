@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { User_Items, Items, Users } = require('../models');
-
+//const { User_Items, Items, Users } = require('../models');
+const User = require('../models/User');
+const Item = require('../models/Item');
 /* This may very well regard UserItems, not Items. Items is a reference table, UserItems is that fluid stuff. */
 
 // @route POST
@@ -13,7 +14,7 @@ const { User_Items, Items, Users } = require('../models');
 // }
 // @desc  Creates a UserItem based upon supplied info
 router.post('/items'), (req, res) => {
-    
+  
     console.log("Item POST: " + req.body.item_name)
 
     // Ensure User Exists
@@ -29,7 +30,7 @@ router.post('/items'), (req, res) => {
                 user_id: user.id,
                 item_id: item.id,
                 qty: req.body.qty,
-                expiration: req.body.expr_date
+                expiration: req.body.expr_date 
             })
         })
     })
@@ -42,7 +43,7 @@ router.post('/items'), (req, res) => {
     });
 
    // CONSIDER RETURNING ALL OF THE USER'S ITEMS
-
+ 
 }
 
 // @route GET
@@ -51,6 +52,7 @@ router.post('/items'), (req, res) => {
 // }
 // @desc  Pulls all of a user's items
 router.get('/items/:u_id'), (req, res) => {
+    
     console.log("Item GET")
     const { u_id } = req.params;
     // get all items belonging to a certain user id
@@ -65,6 +67,7 @@ router.get('/items/:u_id'), (req, res) => {
         console.log(err)
         res.status(400).json({err: err})
     });
+    
 }
 
 
@@ -76,6 +79,7 @@ router.get('/items/:u_id'), (req, res) => {
 // }
 // @desc  Updates an existing user item based upon changed values
 router.patch('/items'), (req, res) => {
+    
     console.log("Item PATCH: " + req.body.id)
     // Note. In this case the item_id, and user ID
     // And that either a qty will be updated (through usage explicitely) or if the user
@@ -98,6 +102,7 @@ router.patch('/items'), (req, res) => {
 // }
 // @desc  Removes a given user item based upon usage (depletion), or expiration
 router.delete('/items:id'), (req, res) => {
+    
     console.log("Item DELETE")
     const { id } = req.params;
 
@@ -110,7 +115,6 @@ router.delete('/items:id'), (req, res) => {
     .catch(err => {
         res.status(404)
     })
-
 }
 
 
