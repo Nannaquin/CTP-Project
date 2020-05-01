@@ -9,6 +9,7 @@ router.get('/test', (req, res) => {
     console.log("Tester!")
     res.send("Hit!");
 });
+
 // @route POST
 // @body {
 //     user_id: {Type: String}
@@ -27,6 +28,7 @@ router.post('/items', (req, res) => {
     // Ensure User Exists
     User.findOne({_id: req.body.user_id})
     .then(user => {
+
         // Format data
         // Insert into inventory
         user.inventory.push({
@@ -43,7 +45,7 @@ router.post('/items', (req, res) => {
     })
     .catch(err => {
         console.log(err)
-        res.status(400).json({msg: err})
+        res.status(400).json({msg: "Insert Item Error"})
     });
 
    // CONSIDER RETURNING ALL OF THE USER'S ITEMS

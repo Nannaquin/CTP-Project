@@ -28,18 +28,13 @@ class LoginPage extends Component {
     login = (e) => {
         e.preventDefault();
 
-        console.log("Is user in local storage?")
-        console.log(localStorage.getItem('user_id'))
         let { email, password } = this.state;
         auth.authenticate(email, password)
             .then((user) => {
-                console.log(user)
                 this.setState({
                     redirectToReferrer: true,
                     success: true,
                 });
-                console.log("What about now")
-                console.log(localStorage.getItem('user_id'))
             })
             .catch((err) => {
                 this.setState({failed: true});
