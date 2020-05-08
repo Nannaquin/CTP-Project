@@ -10,9 +10,13 @@
     "build": "cd client && npm install && npm run build",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run d_server\" \"npm run client\""
+    "dev": "concurrently \"npm run d_server\" \"npm run client\"",
+	"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "author": "Edgardo Molina",
+  "engines": {
+    "node": "10.x"
+  },
+  "author": "Steven Santana",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
