@@ -29,29 +29,11 @@ passport.use(new LocalStrategy({
           console.log('\n\nFailed Login: user does not exist\n\n');
           return done(null, false, { message: 'Failed Login' });
         }
-
-        console.log(`sub/saved (${password}/${user.password})`)
+        
         if(passwordsMatch(password, user.password) === false) {
           console.log('\n\nFailed Login: passwords did not match\n\n');
           return done(null, false, { message: 'Failed Login' });
         }
-        console.log('\n\nSuccessful Login\n\n');
-        return done(null, user, { message: 'Successfully Logged In!' });
-      })
-      .catch(err => { return done(err) });
-    
-    /*User.findOne({ where: { email } })
-      .then((user) => {
-        if(!user) {
-          console.log('\n\nFailed Login: user does not exist\n\n');
-          return done(null, false, { message: 'Failed Login' });
-        }
-
-        if(passwordsMatch(password, user.passwordHash) === false) {
-          console.log('\n\nFailed Login: passwords did not match\n\n');
-          return done(null, false, { message: 'Failed Login' });
-        }
-
         console.log('\n\nSuccessful Login\n\n');
         return done(null, user, { message: 'Successfully Logged In!' });
       })

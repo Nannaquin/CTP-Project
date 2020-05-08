@@ -4,6 +4,32 @@ const bcrypt = require('bcryptjs');
 
 // User.js - The user schema for mongoose. 
 
+const HeldItemSchema = new Schema({
+    api_id: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    amount: {
+        type: Number,
+        required: true
+    },
+    units: {
+        type: String,
+        required: true
+    },
+    date_added: {
+        type: Date,
+        default: Date.now
+    },
+    expr_date: {
+        type: Date,
+        required: true
+    }
+})
 
 // Shmake Schemo
 const UserSchema = new Schema({
@@ -32,8 +58,9 @@ const UserSchema = new Schema({
     auth_token: {
         type: String,
         required: true
-    }//,
-    //inventory: {}
+    },
+    inventory: [ ]
+
     
 });
 

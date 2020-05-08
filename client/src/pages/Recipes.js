@@ -7,6 +7,9 @@ import RecipeApi from '../RecipeApi';
 
 class Recipes extends Component {
 
+    constructor(props) {
+        super(props)
+    }
     componentDidMount() {
         return(
             <RecipeApi />
@@ -14,14 +17,11 @@ class Recipes extends Component {
     }
 
     render(props) {
-
         return(    
             <div className="container">
                 <div className="row">
-
-                    {   
-                        
-                        props.recipes.map((recipe) => {
+                    {          
+                        this.props.recipes.map((recipe) => {
                         
                         return (
                             <div key={recipe.recipe.label} className="col-md-4" style={{ marginBottom:"2rem" }}>

@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+import PrivateRoute from './components/PrivateRoute';
 
 // import fontawesome from '@fortawesome/fontawesome-free';     // <--- The Fon't awesome Icons are not loading, I need to do more research on how to get them working in React.
 
@@ -14,12 +15,14 @@ import AboutUsPage from './pages/AboutUsPage';
 import DashboardPage from './pages/DashboardPage';
 
 import Recipe from "./pages/Recipe";
-import Recipe_API from "./RecipeApi";
+//import RecipeSearch from "./RecipeApi";
 
 import CelebratePage from './pages/CelebratePage';
 import SavedPage from "./pages/savedPage";
 import SharePage from './SharePage';
 import SettingsPage from "./pages/settingsPage";
+import RecipeSearchPage from "./pages/RecipeSearchPage";
+import RecipeSuggestPage from "./pages/RecipeSuggestPage";
 import "./SMSForm"
 
 import "./pages/Recipe";
@@ -42,16 +45,17 @@ class App extends React.Component {
                 <Route exact path="/" component={Landing} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/signup" component={SignUpPage} />
-                <Route path="/dashboard" component={DashboardPage} />
+                <PrivateRoute path="/dashboard" component={DashboardPage} />
                 
-                <Route path="/recipe" component={Recipe_API} exact />
-                <Route path="/recipe/:id" component={Recipe} />
+                <PrivateRoute path="/recipe-search" component={RecipeSearchPage} exact />
+                <PrivateRoute path="/pantry-suggest" component={RecipeSuggestPage} exact />
+                <PrivateRoute path="/recipe/:id" component={Recipe} />
 
-                <Route path="/holiday" component={CelebratePage} />
-                <Route path="/settings" component={SettingsPage} />
-                <Route path="/saved" component={SavedPage} />
-                <Route path="/api/messages" component={SharePage} />
-                <Route path="/aboutUs" component={AboutUsPage} />
+                <PrivateRoute path="/holiday" component={CelebratePage} />
+                <PrivateRoute path="/settings" component={SettingsPage} />
+                <PrivateRoute path="/saved" component={SavedPage} />
+                <PrivateRoute path="/api/messages" component={SharePage} />
+                <PrivateRoute path="/aboutUs" component={AboutUsPage} />
 
 
               </Switch>

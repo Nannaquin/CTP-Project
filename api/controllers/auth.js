@@ -8,16 +8,12 @@ const passport = require('../middlewares/authentication');
 router.post('/signup', (req, res) => {
 
   try {
-    console.log("Pre validation")
-    console.log(req.body)
     const { isValid, errors } = validateSignupInput(req.body)
 
     if(!isValid) {
-      console.log("Errors present in input")
       throw(errors)
     }
-//  if(req.body.password == req.body.password2) {
-    console.log("Passed validations")
+
     User.create({
       username: req.body.username,
       email: req.body.email,
@@ -26,22 +22,33 @@ router.post('/signup', (req, res) => {
       auth_token: req.body.email // do something about this
     })
       .then((user) => {
-        console.log("Signup Create Then")
+
+        // Shouldn't return the whole damn user!
         req.login(user, () => res.status(201).json(user));
       })
       .catch((err) => {
-        console.log("In the catch")
-        //const message = err["errors"][0]["message"]
-        console.log(err)
+        const message = err["errors"][0]["message"]
 
-    
-        
-        res.status(400).json({ msg: err  });
+        let errmsg = "Signup Error" 
+        if(message == "email must be unique") {
+          console.log("Email not Unique")
+          errmsg = "Email already in use"
+        } else if(message == "username must be unique") {
+          console.log("Username not Unique")
+          errmsg = "Username already in use"
+        } else if(message == "phonenumber must be unique") {
+          console.log("Phonenumber not Unique")
+          errmsg = "Phone number already in use"
+        } else if(message == "Validation len on password failed") {
+          console.log("PW Too Short")
+          errmsg = "Password too short."
+        }      
+        res.status(400).json({ msg: errmsg });
       });
-//  }
     }
     catch(err) {
-      res.status(400).json({msg: err})
+      console.log(err)
+      res.status(400).json({msg: "Signup Error"})
     }
 });
 

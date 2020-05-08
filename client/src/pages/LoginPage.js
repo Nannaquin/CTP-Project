@@ -27,6 +27,7 @@ class LoginPage extends Component {
 
     login = (e) => {
         e.preventDefault();
+
         let { email, password } = this.state;
         auth.authenticate(email, password)
             .then((user) => {
