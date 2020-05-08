@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 
 import '@fortawesome/react-fontawesome';
-import '@fortawesome/fontawesome-free';
+import '@fortawesome/fontawesome';
 import '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/free-brands-svg-icons';
 import '@fortawesome/free-solid-svg-icons';
