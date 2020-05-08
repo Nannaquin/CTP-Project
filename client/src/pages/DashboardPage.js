@@ -4,14 +4,10 @@ import React, {
 } from 'react';
 
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
 import SideBar from '../components/sidebar-component';
 import TopBar from '../components/topbar-component';
-import Cards from '../components/card-component';
-import TableLight from '../components/table-light-component';
 import TableDark from '../components/table-dark-component';
 import Loading from '../components/Loading';
-import IngredientsListPage from '../components/ingredients-component';
 
 
 
@@ -28,7 +24,6 @@ export default class DashboardPage extends Component {
             username: "",
             id: "",
         };
-        console.log("Post state setting")
     }
 
     // Get Token from database store it here, if the user is logged in for too long, 
@@ -59,7 +54,11 @@ export default class DashboardPage extends Component {
     render() {
         
         if(this.state.loading) return <Loading />;
-        if(this.state.Loggedin === false) return <Redirect to="/login" />  // Safety Pre-Caution against hackers! ;)
+        if(this.state.Loggedin === false) 
+            {
+                console.log("NOT LOGGED IN");
+                return(<Redirect to="/login" />); // Safety Pre-Caution against hackers! ;)
+            }
 
 
 
@@ -69,7 +68,6 @@ export default class DashboardPage extends Component {
                 <TopBar/>               {/* This is the top bar navbar component it also contains the modal-component*/}    
                 <div className="mt-5">  
                     <TableDark />   
-                    {/*<TableLight />*/}
                 </div>
                 
                 

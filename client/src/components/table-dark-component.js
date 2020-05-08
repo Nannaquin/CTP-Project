@@ -36,7 +36,8 @@ class TableDark extends Component {
 
     getUserIngredients() {
         axios.get('api/items/items', {
-            params: {user_id: localStorage.getItem('user_id')}
+            params: {user_id: localStorage.getItem('user_id')},
+            headers: {"authorization" : "bearer " + localStorage.getItem("token")}
         })
         .then(res => {
             console.log(res)

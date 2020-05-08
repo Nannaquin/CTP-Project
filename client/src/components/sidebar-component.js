@@ -33,7 +33,7 @@ function Navigation(props) {
                                 <a href="/dashboard" className="navbar-brand text-white d-block mx-auto text-center py-3 mb-4 bottom-border">Perfect Pantry</a>
                                 <div className="bottom-border pb-3">
                                     <img width="80" height="60" className="rounded-circle mr-3" src={Profile_Image} alt="profile"/>
-                                    <a href="/settings" className="text-white">Joe Everyman</a>
+                                    <a href="/settings" className="text-white">User Name</a>
                                 </div>
 
                                 {/* <!--Start of Unordered List --> */}
@@ -52,11 +52,18 @@ function Navigation(props) {
                                             Saved Recipes
                                         </Link>
                                     </li>
-                                    {/* <!-- Suggested Recipes --> */}
+                                    {/* <!-- Search Recipes --> */}
                                     <li className="nav-item">
-                                        <Link to="/recipe" className="nav-link text-white p-3 mb-2 sidebar-link">
+                                        <Link to="/recipe-search" className="nav-link text-white p-3 mb-2 sidebar-link">
                                             <i className="fas fa-user text-light fa-lg mr-3"/>
-                                            Suggested Recipes
+                                            Search Recipes
+                                        </Link>
+                                    </li>
+                                    {/* <!-- Pantry Recommendation --> */}
+                                    <li className="nav-item">
+                                        <Link to="/pantry-suggest" className="nav-link text-white p-3 mb-2 sidebar-link">
+                                            <i className="fas fa-user text-light fa-lg mr-3"/>
+                                            Suggest Recipes
                                         </Link>
                                     </li>
                                     {/* <!-- Celebrate the Holidays --> */}

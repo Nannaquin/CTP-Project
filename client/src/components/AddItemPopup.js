@@ -39,6 +39,7 @@ class AddItemPopup extends Component {
         });
         console.log(this.state)
     }
+    
     onChosenCallback = value => {
         // Gut the result, we only need
         console.log(value)
@@ -51,29 +52,17 @@ class AddItemPopup extends Component {
 
     apiCallback(value, cb) {
             console.log("Api CB is execute")
-            axios({
-                "method":"GET",
-                "url":"https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/ingredients/autocomplete",
-                "headers":{
-                "content-type":"application/octet-stream",
-                "x-rapidapi-host":"spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
-                "x-rapidapi-key":"e58fe9d9e7msh10aa1f3333c1731p1ddaacjsne3a5e747f20e"
-                },"params":{
-                "number":"3",
-                "metaInformation": "true",
-                "query": value
-                }
+            axios
+                .get("api/food/ingredientAuto", {
+                    params: {value: value}
                 })
-                .then((response)=>{
-                  console.log(response.data)
-                  //return response.data;
-                  cb(response.data)
+                .then(res => {
+                    cb(res.data.suggestions);
                 })
-                .catch((error)=>{
-                  console.log(error)
-                  cb([])
-                })
-
+                .catch(err => {
+                    console.log(err);
+                    cb([]);
+                });       
     }
 
     onSubmit = e => {
@@ -91,7 +80,6 @@ class AddItemPopup extends Component {
         .then(res =>{ 
             this.props.updateCallback();
             this.onHide()
-            // Call visibility callback?
         })
         .catch(err => {
             console.log(err)

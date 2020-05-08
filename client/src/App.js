@@ -15,12 +15,14 @@ import AboutUsPage from './pages/AboutUsPage';
 import DashboardPage from './pages/DashboardPage';
 
 import Recipe from "./pages/Recipe";
-import Recipe_API from "./RecipeApi";
+//import RecipeSearch from "./RecipeApi";
 
 import CelebratePage from './pages/CelebratePage';
 import SavedPage from "./pages/savedPage";
 import SharePage from './SharePage';
 import SettingsPage from "./pages/settingsPage";
+import RecipeSearchPage from "./pages/RecipeSearchPage";
+import RecipeSuggestPage from "./pages/RecipeSuggestPage";
 import "./SMSForm"
 
 import "./pages/Recipe";
@@ -45,7 +47,8 @@ class App extends React.Component {
                 <Route path="/signup" component={SignUpPage} />
                 <PrivateRoute path="/dashboard" component={DashboardPage} />
                 
-                <PrivateRoute path="/recipe" component={Recipe_API} exact />
+                <PrivateRoute path="/recipe-search" component={RecipeSearchPage} exact />
+                <PrivateRoute path="/pantry-suggest" component={RecipeSuggestPage} exact />
                 <PrivateRoute path="/recipe/:id" component={Recipe} />
 
                 <PrivateRoute path="/holiday" component={CelebratePage} />
