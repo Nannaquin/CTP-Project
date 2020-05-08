@@ -37,7 +37,7 @@ passport.use(new LocalStrategy({
         console.log('\n\nSuccessful Login\n\n');
         return done(null, user, { message: 'Successfully Logged In!' });
       })
-      .catch(err => { return done(err) });
+      .catch(err => { return done(err) }); */
   })
 );
 

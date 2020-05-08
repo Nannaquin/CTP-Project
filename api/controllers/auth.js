@@ -13,6 +13,7 @@ router.post('/signup', (req, res) => {
     if(!isValid) {
       throw(errors)
     }
+
     User.create({
       username: req.body.username,
       email: req.body.email,
@@ -21,6 +22,7 @@ router.post('/signup', (req, res) => {
       auth_token: req.body.email // do something about this
     })
       .then((user) => {
+
         // Shouldn't return the whole damn user!
         req.login(user, () => res.status(201).json(user));
       })
@@ -43,7 +45,6 @@ router.post('/signup', (req, res) => {
         }      
         res.status(400).json({ msg: errmsg });
       });
-//  }
     }
     catch(err) {
       console.log(err)
@@ -55,6 +56,7 @@ router.post('/signup', (req, res) => {
 router.post('/login',
   passport.authenticate('local'),
   (req, res) => {
+    console.log("Begin?")
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
     res.json(req.user);

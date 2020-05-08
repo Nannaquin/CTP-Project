@@ -31,7 +31,6 @@ const HeldItemSchema = new Schema({
     }
 })
 
-
 // Shmake Schemo
 const UserSchema = new Schema({
     username: {
@@ -61,6 +60,7 @@ const UserSchema = new Schema({
         required: true
     },
     inventory: [ ]
+
     
 });
 

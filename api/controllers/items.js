@@ -25,10 +25,11 @@ router.post('/items', (req, res) => {
     console.log("Item POST: " + req.body)
     const {api_id, name, amount, units, expr_date} = req.body;
 
+
     // Ensure User Exists
     User.findOne({_id: req.body.user_id})
     .then(user => {
-
+      
         // Format data
         // Insert into inventory
         user.inventory.push({
@@ -52,12 +53,14 @@ router.post('/items', (req, res) => {
  
 });
 
+
 // @route GET
 // @body {
 //     user_id: {Type: Integer},
 // }
 // @desc  Pulls all of a user's items
 router.get('/items', (req, res) => {
+
     
     console.log("Item GET")
     const { user_id } = req.query;
@@ -73,8 +76,8 @@ router.get('/items', (req, res) => {
         console.log(err)
         res.status(400).json({err: err})
     });
-    
 });
+
 
 
 // @route PATCH
@@ -92,6 +95,7 @@ router.patch('/items', (req, res) => {
     console.log("Item PATCH: " + req.body)
 
     const {user_id, item_id, amount, units, expr_date} = req.body;
+
     // Note. In this case the item_id, and user ID
     // And that either a qty will be updated (through usage explicitely) or if the user
     // changes the expiration date.
@@ -149,6 +153,7 @@ router.delete('/items:id', (req, res) => {
         res.status(404).json({msg: "Item not found"});
     })
 });
+
 
 
 module.exports = router; 

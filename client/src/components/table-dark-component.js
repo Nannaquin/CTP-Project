@@ -20,6 +20,7 @@ function Record({number, name, amount, units, expr_date}) {
         </tr>
     );
 }
+
 class TableDark extends Component {
     constructor(props){
         super(props);
@@ -90,7 +91,6 @@ class TableDark extends Component {
         });
         this.handleShow();
     }
-
 
 
     handleShow = () => {
