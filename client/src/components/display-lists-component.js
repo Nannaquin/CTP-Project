@@ -16,39 +16,59 @@ function ItemRow({name, amount, units}) {
   )
 }
 
-function deleteList(listId) {
-  axios.delete('api/lists/list', {
-      params: {user_id: localStorage.getItem('user_id'),
-              list_id: listId},
-      headers: {"authorization" : "bearer " + localStorage.getItem("token")}
-    })
-    .then(res => {
-      console.log("Post List Delete");
-    })
-    .catch(err => {
-      console.log(err);
-    })
+
+class ListControlPanel extends Component {
+  constructor(props) {
+    super(props);
+    console.log(props)
+    this.state = {
+      listId: this.props.listId,
+      name: this.props.name,
+      dateStarted: this.props.dateStarted
+    }
+  };
+  
+  deleteList() {
+    console.log(this)
+    axios.delete('api/lists/list', {
+        params: {user_id: localStorage.getItem('user_id'),
+                list_id: this.props.listId},
+        headers: {"authorization" : "bearer " + localStorage.getItem("token")}
+      })
+      .then(res => {
+        console.log("Post List Delete");
+        this.props.deleteCallback();
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  };
+
+  render() {
+    console.log(this.state)
+    const displayDate = new Date(this.state.dateStarted).toDateString().slice(4)
+    return(
+      <Container>
+        <Row>
+          <Col>Name: {this.state.name}</Col>
+          <Col>Date Started: {displayDate}</Col>
+        </Row>
+        <Row>
+          <Col><Button variant="primary">Add Item</Button></Col>
+          <Col><Button variant="secondary">Send</Button></Col>
+          <Col><Button variant="secondary">Close Out</Button></Col>
+          <Col><Button variant="secondary" onClick={this.deleteList}>Delete</Button></Col>
+        </Row>
+      </Container>
+    )
+  };
 }
 
-function ListControlPanel({listId, name, dateStarted}) {
-  const displayDate = new Date(dateStarted).toDateString().slice(4)
-  return(
-    <Container>
-      <Row>
-        <Col>Name: {name}</Col>
-        <Col>Date Started: {displayDate}</Col>
-      </Row>
-      <Row>
-        <Col><Button variant="primary">Add Item</Button></Col>
-        <Col><Button variant="secondary">Send</Button></Col>
-        <Col><Button variant="secondary">Close Out</Button></Col>
-        <Col><Button variant="secondary">Delete</Button></Col>
-      </Row>
-    </Container>
-  )
-}
+ 
 
-function ListPanel({items, name, dateStarted, pos, listId}) {
+
+function ListPanel({items, name, dateStarted, pos, listId, deleteCallback}) {
+  console.log(listId)
   const tId = pos;
   let rows = undefined;
   if(items.length != 0) {
@@ -62,7 +82,7 @@ function ListPanel({items, name, dateStarted, pos, listId}) {
 
   return(
     <TabPanel tabId={tId.toString()}>
-      <ListControlPanel listId={listId} name={name} dateStarted={dateStarted}/>
+      <ListControlPanel listId={listId} name={name} dateStarted={dateStarted} deleteCallback={deleteCallback}/>
       <Table striped bordered>
         <tbody>
           {rows}
@@ -87,7 +107,7 @@ class ListDisplay extends Component {
       headers: {"authorization" : "bearer " + localStorage.getItem("token")}
     })
     .then(res => {
-      console.log(res.data)
+      console.log(res.data);
       this.setState({lists: res.data.lists});
 
     })
@@ -130,6 +150,7 @@ class ListDisplay extends Component {
                 dateStarted={list.date_started}
                 pos={ii}
                 listId={list._id}
+                deleteCallback={this.getUserLists}
                 key={ii}/>);
       });
     } else tabPanels = <TabPanel tabId={"empty"}>Start a Shopping List!</TabPanel>
