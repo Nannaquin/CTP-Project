@@ -1,6 +1,6 @@
 import React, { 
     Component, 
-    Link,
+    //Link,
 } from 'react';
 
 import { Redirect } from 'react-router-dom';
@@ -44,9 +44,6 @@ export default class DashboardPage extends Component {
     }
 
     onSubmit(e) {
-        console.log("This function has been called! ... ");
-        console.log("===================================");
-
         e.preventDefault();
     }
 

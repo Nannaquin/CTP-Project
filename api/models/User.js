@@ -2,7 +2,40 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
-// User.js - The user schema for mongoose. 
+const ListItemSchema = new Schema({
+    api_id: {
+        type: String,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    amount: {
+        type: Number,
+        required: true
+    },
+    units: {
+        type: String,
+        required: true
+    }
+});
+
+const ListSchema = new Schema({
+    name: {
+        type: String
+    },
+    date_started: {
+        type: Date,
+        default: new Date()
+    },
+    resolved: {
+        type: Boolean,
+        default: false
+    },
+    items: [ ListItemSchema ]
+
+});
 
 const HeldItemSchema = new Schema({
     api_id: {
@@ -23,7 +56,7 @@ const HeldItemSchema = new Schema({
     },
     date_added: {
         type: Date,
-        default: Date.now
+        default: new Date() 
     },
     expr_date: {
         type: Date,
@@ -45,7 +78,7 @@ const UserSchema = new Schema({
     },
     creation_date: {
         type: Date,
-        default: Date.now
+        default: new Date()
     },
     email: {
         type: String,
@@ -55,11 +88,8 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    auth_token: {
-        type: String,
-        required: true
-    },
-    inventory: [ ]
+    inventory: [ HeldItemSchema ],
+    shopping_lists: [ ListSchema ]
 
     
 });

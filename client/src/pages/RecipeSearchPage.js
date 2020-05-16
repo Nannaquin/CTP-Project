@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link, withRouter, Redirect} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {Row, Col, Container} from 'react-bootstrap';
 import SideBar from '../components/sidebar-component';
 import TopBar from '../components/topbar-component';

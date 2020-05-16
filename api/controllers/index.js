@@ -9,6 +9,7 @@ const otherController = require('./other');
 const itemsController = require('./items');
 const usersController = require('./users');
 const recipesController = require('./recipes');
+const listsController = require('./lists');
 
 //const postsController = require('./posts.js');
 const spoonController = require('./spoon');
@@ -20,6 +21,7 @@ const appConfigController = require('./appConfig.js');
 router.use('/auth', authController);
 router.use('/other', otherController);
 router.use('/items', itemsController);
+router.use('/lists', listsController);
 router.use('/users', usersController);
 router.use('/recipes', recipesController);
 router.use('/food', spoonController);

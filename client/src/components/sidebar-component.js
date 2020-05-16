@@ -2,11 +2,11 @@ import React from 'react';
 
 import { Link } from 'react-router-dom'; 
 
-import '@fortawesome/react-fontawesome';
-import '@fortawesome/fontawesome';
-import '@fortawesome/fontawesome-svg-core';
+//import '@fortawesome/react-fontawesome';
+//import '@fortawesome/fontawesome';
+/* import '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/free-brands-svg-icons';
-import '@fortawesome/free-solid-svg-icons';
+import '@fortawesome/free-solid-svg-icons'; */
 
 
 import '../css/dashboard-style.css';
@@ -38,6 +38,13 @@ function Navigation(props) {
 
                                 {/* <!--Start of Unordered List --> */}
                                 <ul className="navbar-nav flex-column mt-4">  
+                                    {/* <!-- Shopping List --> */}
+                                    <li className="nav-item">
+                                        <Link to="/shopping-lists" className="nav-link text-white p-3 mb-2 sidebar-link">       {/* <!-- Can't use active as it conflicts with existing Bootstrap className --> */}
+                                            <i className="fas fa-home text-light fa-lg mr-3"/>
+                                            Shopping Lists
+                                        </Link>
+                                    </li>
                                     {/* <!-- Pantry --> */}
                                     <li className="nav-item">
                                         <Link to="/dashboard" className="nav-link text-white p-3 mb-2 sidebar-link">       {/* <!-- Can't use active as it conflicts with existing Bootstrap className --> */}

@@ -1,22 +1,35 @@
 import React, {Component} from 'react';
-import {Button} from "react-bootstrap";
+//import {Button} from "react-bootstrap";
 import AddItemPopup from './AddItemPopup';
 import axios from 'axios'; 
 
 
 function Record({number, name, amount, units, expr_date}) {
     // Set color of expiration date color before returning 
-    //let cn = "";
-    /*if(status == 'Good') { cn = "badge badge-success w-75"; }
-    else if(status == 'Close') { cn = "badge badge-warning w-75"; }
-    else if(status == 'Expired') { cn = "badge badge-danger w-75"; } */
+
+    const e_date = new Date(expr_date)
+    const displayDate = e_date.toDateString().slice(4)
+    const rightNow = new Date();
+
+    let cn = "";
+    if(e_date > rightNow) {
+        cn = "text-white bg-success";
+        //console.log("ITS OKAY");
+    }
+    //else if(status == 'Close') { cn = "badge badge-warning w-75"; }
+    else if(e_date <= rightNow) {
+        cn = "text-white bg-danger";
+        //console.log("EXPIRED");
+    } 
+
+    
     return(
         <tr>
             <th>{number}</th>
             <td>{name}</td>
             <td>{amount}</td>
             <td>{units}</td>
-            <td>{expr_date}</td>
+            <td className={cn}>{displayDate}</td>
         </tr>
     );
 }
@@ -28,9 +41,6 @@ class TableDark extends Component {
             ingredients: [],
             show: false,
             setShow: false,
-            name: "",
-            amount: "",
-            units: "kg",
             timeToUpdate: false
         }
     }
@@ -41,8 +51,8 @@ class TableDark extends Component {
             headers: {"authorization" : "bearer " + localStorage.getItem("token")}
         })
         .then(res => {
-            console.log(res)
-            this.setState({ingredients: res.data.items})
+            console.log(res.data)
+            this.setState({ingredients: res.data.items});
         })
         .catch(err => {
             console.log(err)
@@ -60,7 +70,7 @@ class TableDark extends Component {
         console.log("updateList done");
     }
 
-    updateCallback = childData => {
+    updateCallback = () => {
         this.setState({timeToUpdate: true});
         this.updateList();
         
@@ -71,24 +81,6 @@ class TableDark extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-
-        /*const newItem = {
-            name: this.state.name,
-            amount: this.state.amount,
-            units: this.state.units
-        }; */
-        const newItem = {
-            number: "-1",
-            name: this.state.name,
-            amount: "4",
-            units: "cups",
-            expr_date: "04/16/2020",
-        }
-        this.state.ingredients.push(newItem)
-
-        this.setState ({
-            name: ""
-        });
         this.handleShow();
     }
 

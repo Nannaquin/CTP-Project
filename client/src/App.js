@@ -23,6 +23,8 @@ import SharePage from './SharePage';
 import SettingsPage from "./pages/settingsPage";
 import RecipeSearchPage from "./pages/RecipeSearchPage";
 import RecipeSuggestPage from "./pages/RecipeSuggestPage";
+import ShoppingListsPage from "./pages/ShoppingListsPage";
+import UITest from "./pages/UITest";
 import "./SMSForm"
 
 import "./pages/Recipe";
@@ -40,16 +42,16 @@ class App extends React.Component {
             <div className="row justify-content-center">
               <Switch>
                 
-                {/* <Route path="/posts/new" component={PostFormPage} /> */}
-                {/* <Route path="/posts/:id" component={ShowPostPage} /> */}
                 <Route exact path="/" component={Landing} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/signup" component={SignUpPage} />
+                <Route path="/uitest" component={UITest} />
                 <PrivateRoute path="/dashboard" component={DashboardPage} />
                 
                 <PrivateRoute path="/recipe-search" component={RecipeSearchPage} exact />
                 <PrivateRoute path="/pantry-suggest" component={RecipeSuggestPage} exact />
                 <PrivateRoute path="/recipe/:id" component={Recipe} />
+                <PrivateRoute path="/shopping-lists" component={ShoppingListsPage} />
 
                 <PrivateRoute path="/holiday" component={CelebratePage} />
                 <PrivateRoute path="/settings" component={SettingsPage} />

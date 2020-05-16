@@ -6,10 +6,11 @@ const User = require('../models/User');
 
 
 router.get('/test', (req, res) => {
-    console.log("Tester!")
+    console.log("Tester hit!")
     res.send("Hit!");
 });
 
+// Words
 // @route POST
 // @body {
 //     user_id: {Type: String}
@@ -24,6 +25,7 @@ router.post('/items', (req, res) => {
   
     console.log("Item POST: " + req.body)
     const {api_id, name, amount, units, expr_date} = req.body;
+    console.log(`ed(${expr_date}), typeof(${typeof(expr_date)})`)
 
 
     // Ensure User Exists
@@ -92,9 +94,9 @@ router.get('/items', (req, res) => {
 // Operates on the assumption that the entry already exists.
 router.patch('/items', (req, res) => {
     
-    console.log("Item PATCH: " + req.body)
+    console.log("Item PATCH: " + req.query)
 
-    const {user_id, item_id, amount, units, expr_date} = req.body;
+    const {user_id, item_id, amount, units, expr_date} = req.query;
 
     // Note. In this case the item_id, and user ID
     // And that either a qty will be updated (through usage explicitely) or if the user
@@ -136,14 +138,15 @@ router.patch('/items', (req, res) => {
 //     item_id: {Type: ObjectId}
 // }
 // @desc  Removes a given user item based upon usage (depletion), or expiration
-router.delete('/items:id', (req, res) => {
+router.delete('/items', (req, res) => {
     
     console.log("Item DELETE")
-    const { user_id, item_id } = req.params;
+    const { user_id, item_id } = req.query;
 
     User.findOne({_id: user_id})
     .then(user => {
         user.inventory.id(item_id).remove();
+        user.save();
     })
     .then(r => {
         res.status(204).json({msg: "Item removed."});

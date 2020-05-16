@@ -18,8 +18,7 @@ router.post('/signup', (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: req.body.password,
-      phone_number: req.body.phonenumber,
-      auth_token: req.body.email // do something about this
+      phone_number: req.body.phonenumber
     })
       .then((user) => {
 
@@ -59,6 +58,7 @@ router.post('/login',
     console.log("Begin?")
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
+   // console.log(req.user)
     res.json(req.user);
   });
 

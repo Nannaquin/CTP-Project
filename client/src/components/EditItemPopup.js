@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Modal} from "react-bootstrap";
-import AutosuggestComponent from './autosuggest-component';
+//import AutosuggestComponent from './autosuggest-component';
 import axios from 'axios';
 
 function Unit({name}) {
@@ -10,23 +10,18 @@ function Unit({name}) {
         
 }
 
-class AddItemPopup extends Component {
+class EditItemPopup extends Component {
 
     constructor(props){
         super(props);
-
-        const today = new Date();
         this.state = {
             user_id: "",
             api_id: "",
             name: "",
-            possible_units: [],
+            //possible_units: [],
             amount: "",
             chosen_units: "",
-            //expr_date: ""
-            month: today.getMonth() + 1,
-            day: today.getDate(),
-            year: today.getFullYear()
+            expr_date: ""
         };
     }
     componentWillMount() {
@@ -40,11 +35,9 @@ class AddItemPopup extends Component {
             possible_units: [],
             amount: "",
             chosen_units: "",
-            month: "",
-            day: "",
-            year: ""
+            expr_date: ""
         });
-        //console.log(this.state)
+        console.log(this.state)
     }
     
     onChosenCallback = value => {
@@ -53,8 +46,7 @@ class AddItemPopup extends Component {
         this.setState({
             api_id: value.id,
             name: value.name,
-            possible_units: value.possibleUnits,
-            chosen_units: value.possibleUnits[0]
+            possible_units: value.possibleUnits
         })
     };
 
@@ -75,20 +67,13 @@ class AddItemPopup extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        const finalDate = new Date(
-            this.state.year,
-            this.state.month - 1,
-            this.state.day);
-
-        console.log(`${finalDate} is a ${typeof(finalDate)}`)
-
         const newItem = {
             user_id: localStorage.getItem('user_id'),
             api_id: this.state.api_id,
             name: this.state.name,
             amount: this.state.amount,
             units: this.state.chosen_units,
-            expr_date: finalDate
+            expr_date: new Date()//this.state.expr_date
         }
         // send item to db
         axios.post('api/items/items', newItem)
@@ -100,16 +85,6 @@ class AddItemPopup extends Component {
             console.log(err)
             // Make some visible declaration that something went wrong
         })
-        this.setState({
-            api_id: "",
-            name: "",
-            possible_units: [],
-            amount: "",
-            chosen_units: "",
-            month: "",
-            day: "",
-            year: ""
-        });
 
     }
 
@@ -118,11 +93,20 @@ class AddItemPopup extends Component {
     };
 
     onHide = e => {
+    /*    this.setState({
+            api_id: "",
+            name: "",
+            possible_units: [],
+            amount: "",
+            chosen_units: "",
+            expr_date: ""
+        }) */
         this.props.onHide()
     };
 
 
     render() {
+        console.log(Date.now())
         let units = undefined;
         if (this.state.possible_units.length != 0) {
             units = this.state.possible_units.map((value, ii) => {
@@ -146,42 +130,19 @@ class AddItemPopup extends Component {
                             onChosenCallback={this.onChosenCallback}
                             />
 
-
                         {/* Amount */}
-                        <label for="amount">Amount</label>
                         <input type="text" 
-                            id={"amount"}
-                            name="amount"
-                            placeholder="Amount"
+                            id={"amount"} 
                             onChange={this.onChange}
                             pattern="[0-9]*"></input>
 
                         {/* Units */}
-                        <label for="units">Units</label>
                         <select value={this.state.chosen_units} 
                             id={"chosen_units"} 
-                            name="units"
                             onChange={this.onChange}>
+                           
                            {units}
                         </select>
-
-                        {/* Expiration Date */}
-                        {/* */}<label for="month">Month</label>
-                        <input type="number"
-                            id="month"
-                            name="month"
-                            onChange={this.onChange}></input>
-                        <label for="day">Day</label>
-                        <input type="number"
-                            id="day"
-                            name="day"
-                            onChange={this.onChange}></input>
-                        <label for="year">Year</label>
-                        <input type="number"
-                            id="year"
-                            name="year"
-                            onChange={this.onChange}></input>                            
-
 
                     </form>
                 </Modal.Body>
