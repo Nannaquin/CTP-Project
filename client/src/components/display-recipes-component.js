@@ -43,7 +43,6 @@ class DisplayRecipes extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props)
         this.state = {
             recipes: this.props.recipes
         }
@@ -52,12 +51,10 @@ class DisplayRecipes extends Component {
 
     recipeGrouping(results) {
         let groups = []; // What we will return, holds the groups of 3
-        //console.log(results)
 
         while(results.length != 0) {
             groups.push(results.splice(0, 3));
         }
-        //console.log(groups)
         return groups;
     }
     componentDidUpdate(prevProps) {
@@ -65,7 +62,6 @@ class DisplayRecipes extends Component {
             
             // Divide recipes into array of groups of 3, and give back to this.state
             const formattedRecipes = this.recipeGrouping(this.props.recipes);
-            //console.log(formattedRecipes)
             this.setState({recipes: formattedRecipes});
 
         }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-//import { render } from 'react-dom';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
-import { Row, Col, Container, Table, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import axios from 'axios';
 
 import '../css/ListDisplay.css';
+import ListControlPanel from './list-control-panel-component';
 
 function ItemRow({name, amount, units}) {
   return(
@@ -15,60 +15,10 @@ function ItemRow({name, amount, units}) {
     </tr>
   )
 }
-
-
-class ListControlPanel extends Component {
-  constructor(props) {
-    super(props);
-    console.log(props)
-    this.state = {
-      listId: this.props.listId,
-      name: this.props.name,
-      dateStarted: this.props.dateStarted
-    }
-  };
-  
-  deleteList() {
-    console.log(this)
-    axios.delete('api/lists/list', {
-        params: {user_id: localStorage.getItem('user_id'),
-                list_id: this.props.listId},
-        headers: {"authorization" : "bearer " + localStorage.getItem("token")}
-      })
-      .then(res => {
-        console.log("Post List Delete");
-        this.props.deleteCallback();
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  };
-
-  render() {
-    console.log(this.state)
-    const displayDate = new Date(this.state.dateStarted).toDateString().slice(4)
-    return(
-      <Container>
-        <Row>
-          <Col>Name: {this.state.name}</Col>
-          <Col>Date Started: {displayDate}</Col>
-        </Row>
-        <Row>
-          <Col><Button variant="primary">Add Item</Button></Col>
-          <Col><Button variant="secondary">Send</Button></Col>
-          <Col><Button variant="secondary">Close Out</Button></Col>
-          <Col><Button variant="secondary" onClick={this.deleteList}>Delete</Button></Col>
-        </Row>
-      </Container>
-    )
-  };
-}
-
  
 
 
 function ListPanel({items, name, dateStarted, pos, listId, deleteCallback}) {
-  console.log(listId)
   const tId = pos;
   let rows = undefined;
   if(items.length != 0) {
@@ -100,7 +50,7 @@ class ListDisplay extends Component {
           
       }
   }
-
+/*
   getUserLists() {
     axios.get('api/lists/lists', {
       params: {user_id: localStorage.getItem('user_id')},
@@ -113,12 +63,17 @@ class ListDisplay extends Component {
     })
     .catch(err => {
       console.log(err);
-    });
+    }); 
 
-  }
+  }*/
 
   componentDidMount() {
-    this.getUserLists();
+    this.props.apiCall();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.lists != prevProps.lists) {
+      this.setState({lists: this.props.lists});
+    }
   }
 
   onCreateClick = e => {
@@ -128,8 +83,8 @@ class ListDisplay extends Component {
     };
     axios.post('api/lists/list', newList)
     .then(res => {
-      console.log(res);
-      this.getUserLists();
+      console.log("Creation Click");
+      this.props.apiCall();
     })
     .catch(err => {
       console.log(err);
@@ -150,7 +105,7 @@ class ListDisplay extends Component {
                 dateStarted={list.date_started}
                 pos={ii}
                 listId={list._id}
-                deleteCallback={this.getUserLists}
+                refreshListCallback={this.props.apiCall}
                 key={ii}/>);
       });
     } else tabPanels = <TabPanel tabId={"empty"}>Start a Shopping List!</TabPanel>

@@ -24,7 +24,6 @@ class RecipeSearchPage extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-
         this.apiCall();
     };
 

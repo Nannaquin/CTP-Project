@@ -57,8 +57,6 @@ export default class DashboardPage extends Component {
                 return(<Redirect to="/login" />); // Safety Pre-Caution against hackers! ;)
             }
 
-
-
         return (
             <div>
                 <SideBar/>              {/* This is the side bar navbar component */}   

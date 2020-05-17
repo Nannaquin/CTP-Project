@@ -11,7 +11,28 @@ import axios from 'axios';
 class ShoppingListsPage extends Component {
     constructor(props) {
         super(props);
-        console.log("Yeet");
+        this.state = {
+            lists: []
+        }
+    }
+
+    apiCall = () => {
+        console.log("Updating Lists")
+        axios
+        .get('api/lists/lists', {
+            params: {user_id: localStorage.getItem('user_id')},
+            headers: {"authorization" : "bearer " + localStorage.getItem("token")}
+          })
+          .then(res => {
+            console.log(res.data);
+            this.setState({
+                lists: res.data.lists
+            });
+      
+          })
+          .catch(err => {
+            console.log(err);
+          });
     }
 
     render() {
@@ -20,7 +41,7 @@ class ShoppingListsPage extends Component {
                 <SideBar/>              {/* This is the side bar navbar component */}   
                 <TopBar/>               {/* This is the top bar navbar component it also contains the modal-component*/}    
                 <div className="mt-5">  
-                    <ListDisplay />
+                    <ListDisplay lists={this.state.lists} apiCall={this.apiCall} />
                 </div>
             </div>
             );

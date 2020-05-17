@@ -16,7 +16,7 @@ function Record({number, name, amount, units, expr_date}) {
         cn = "text-white bg-success";
         //console.log("ITS OKAY");
     }
-    //else if(status == 'Close') { cn = "badge badge-warning w-75"; }
+    //else if(some concept for being close to expiration) color is something else; Yellow?
     else if(e_date <= rightNow) {
         cn = "text-white bg-danger";
         //console.log("EXPIRED");
@@ -39,9 +39,7 @@ class TableDark extends Component {
         super(props);
         this.state = {
             ingredients: [],
-            show: false,
-            setShow: false,
-            timeToUpdate: false
+            show: false
         }
     }
 
@@ -65,19 +63,13 @@ class TableDark extends Component {
 
     // Call DB API to get new list of user's ingredients
     updateList = () => {
-        this.setState ({timeToUpdate: false});
         this.getUserIngredients();
-        console.log("updateList done");
     }
 
     updateCallback = () => {
-        this.setState({timeToUpdate: true});
-        this.updateList();
+        this.getUserIngredients();
         
     }
-
-    
-
 
     onSubmit = e => {
         e.preventDefault();
@@ -87,7 +79,6 @@ class TableDark extends Component {
 
     handleShow = () => {
         this.setState({  
-            showPopup: !this.state.showPopup,
             show: !this.state.show
        });  
     };
