@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, ListGroup} from 'react-bootstrap';
 import { Link } from 'react-router-dom'; 
 
 import HandleSignOutModal from '../components/modal-component';
+import "../css/sidebar.css";
 
 class SideBar extends Component {
 
@@ -15,27 +16,21 @@ class SideBar extends Component {
 
         return(
         <Container>
-            <Row> {/* Logo */}
-                <Link to="\dashboard">Perfect Pantry</Link>
+            <Row className="border border-primary"> {/* Logo */}
+                <Link to="/" id="logo">Perfect Pantry</Link>
             </Row>
             <Row>{/* Username, Logout */}
                 <Col>Username</Col>
                 <Col><HandleSignOutModal /></Col>
             </Row>
-            <Row>{/* Shopping Lists */}
-                <Link to="\shopping-lists">Shopping Lists</Link>
-            </Row>
-            <Row>{/* Pantry */}
-                <Link to="\dashboard">Pantry</Link>
-            </Row>
-            <Row>{/* Search Recipes*/}
-                <Link to="\recipe-search">Search Recipes</Link>
-            </Row>
-            <Row>{/* Get Suggestions */}
-                <Link to="\pantry-suggest">Recipe Suggestions</Link>
-            </Row>
-            <Row>{/* Help */}
-                <Link to="\help">Get Help!</Link>
+            <Row>
+                <ListGroup>
+                    <ListGroup.Item> <Link to="/shopping-lists">Shopping Lists</Link> </ListGroup.Item>
+                    <ListGroup.Item> <Link to="/dashboard">Pantry</Link> </ListGroup.Item>
+                    <ListGroup.Item> <Link to="/recipe-search">Search Recipes</Link> </ListGroup.Item>
+                    <ListGroup.Item> <Link to="/pantry-suggest">Recipe Suggestions</Link> </ListGroup.Item>
+                    <ListGroup.Item> <Link to="/help">Get Help!</Link> </ListGroup.Item>
+                </ListGroup>
             </Row>
         </Container>    
             

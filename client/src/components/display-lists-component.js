@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Tabs, Tab, TabPanel, TabList } from 'react-web-tabs';
-import { Table } from 'react-bootstrap';
+import { Table, Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 
 import '../css/ListDisplay.css';
 import ListControlPanel from './list-control-panel-component';
+
 
 function ItemRow({name, amount, units}) {
   return(
@@ -12,13 +13,22 @@ function ItemRow({name, amount, units}) {
       <td>{name}</td>
       <td>{amount}</td>
       <td>{units}</td>
+      <td> 
+        <Dropdown> 
+          <Dropdown.Toggle variant="secondary"></Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item>Edit</Dropdown.Item>
+            <Dropdown.Item>Delete</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </td>
     </tr>
   )
 }
  
 
 
-function ListPanel({items, name, dateStarted, pos, listId, deleteCallback}) {
+function ListPanel({items, name, dateStarted, pos, listId, deleteCallback, refreshCallback}) {
   const tId = pos;
   let rows = undefined;
   if(items.length != 0) {
@@ -32,7 +42,11 @@ function ListPanel({items, name, dateStarted, pos, listId, deleteCallback}) {
 
   return(
     <TabPanel tabId={tId.toString()}>
-      <ListControlPanel listId={listId} name={name} dateStarted={dateStarted} deleteCallback={deleteCallback}/>
+      <ListControlPanel listId={listId} 
+          name={name} 
+          dateStarted={dateStarted} 
+          deleteCallback={deleteCallback}
+          refreshCallback={refreshCallback}/>
       <Table striped bordered>
         <tbody>
           {rows}
@@ -105,7 +119,7 @@ class ListDisplay extends Component {
                 dateStarted={list.date_started}
                 pos={ii}
                 listId={list._id}
-                refreshListCallback={this.props.apiCall}
+                refreshCallback={this.props.apiCall}
                 key={ii}/>);
       });
     } else tabPanels = <TabPanel tabId={"empty"}>Start a Shopping List!</TabPanel>

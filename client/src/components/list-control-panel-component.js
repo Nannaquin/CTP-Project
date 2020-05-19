@@ -21,10 +21,11 @@ class ListControlPanel extends Component {
 
 
   updateCallback = () => {
-      this.props.refreshListCallback();
+      this.props.refreshCallback();
   }
   
   handleShow = () => {
+    console.log("HANDLE SHOW")
       this.setState({
           show: !this.state.show
       })
@@ -39,7 +40,7 @@ class ListControlPanel extends Component {
       })
       .then(res => {
         console.log("Post List Delete");
-        this.props.refreshListCallback();
+        this.props.refreshCallback();
       })
       .catch(err => {
         console.log(err);

@@ -1,6 +1,6 @@
+// Popup for closing out items
 import React, {Component} from 'react';
-import {Modal} from "react-bootstrap";
-import AutosuggestComponent from './autosuggest-component';
+import {Modal, Container, Row, Col, ListGroup} from "react-bootstrap";
 import axios from 'axios';
 
 function Unit({name}) {
@@ -10,12 +10,11 @@ function Unit({name}) {
         
 }
 
-class AddItemPopup extends Component {
+class ListCheckerPopup extends Component {
 
     constructor(props){
         super(props);
 
-        const today = new Date();
         this.state = {
             user_id: "",
             api_id: "",
@@ -23,12 +22,9 @@ class AddItemPopup extends Component {
             possible_units: [],
             amount: "",
             chosen_units: "",
-            //expr_date: ""
-            month: today.getMonth() + 1,
-            day: today.getDate(),
-            year: today.getFullYear()
         };
-    }
+    };
+
     componentWillMount() {
         console.log(this.state)
     }
@@ -40,11 +36,7 @@ class AddItemPopup extends Component {
             possible_units: [],
             amount: "",
             chosen_units: "",
-            month: "",
-            day: "",
-            year: ""
         });
-        //console.log(this.state)
     }
     
     onChosenCallback = value => {
@@ -59,7 +51,6 @@ class AddItemPopup extends Component {
     };
 
     apiCallback(value, cb) {
-            console.log("Api CB is execute")
             axios
                 .get("api/food/ingredientAuto", {
                     params: {value: value}
@@ -75,26 +66,21 @@ class AddItemPopup extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        const finalDate = new Date(
-            this.state.year,
-            this.state.month - 1,
-            this.state.day);
 
-        console.log(`${finalDate} is a ${typeof(finalDate)}`)
 
-        const newItem = {
+        const newListItem = {
             user_id: localStorage.getItem('user_id'),
+            list_id: this.props.listId,
             api_id: this.state.api_id,
             name: this.state.name,
             amount: this.state.amount,
             units: this.state.chosen_units,
-            expr_date: finalDate
         }
         // send item to db
-        axios.post('api/items/items', newItem)
+        axios.post('api/lists/item', newListItem)
         .then(res =>{ 
             this.props.updateCallback();
-            this.onHide()
+            this.onHide();
         })
         .catch(err => {
             console.log(err)
@@ -106,13 +92,10 @@ class AddItemPopup extends Component {
             possible_units: [],
             amount: "",
             chosen_units: "",
-            month: "",
-            day: "",
-            year: ""
         });
 
     }
-
+    
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };
@@ -133,58 +116,20 @@ class AddItemPopup extends Component {
         return(
             <Modal show={this.props.show} onHide={this.props.onHide}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Add an Item</Modal.Title>
+                    <Modal.Title>What did you buy?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-
-                    <form className="add-item-form" onSubmit={this.onSubmit}>
-
-                        <AutosuggestComponent 
-                            className="form-control rounded-pill form-control-lg" 
-                            placeholderText={"Start typing your item..."}
-                            apiCall={this.apiCallback}
-                            onChosenCallback={this.onChosenCallback}
-                            />
-
-
-                        {/* Amount */}
-                        <label for="amount">Amount</label>
-                        <input type="text" 
-                            id={"amount"}
-                            name="amount"
-                            placeholder="Amount"
-                            onChange={this.onChange}
-                            pattern="[0-9]*"
-                            required></input>
-
-                        {/* Units */}
-                        <label for="units">Units</label>
-                        <select value={this.state.chosen_units} 
-                            id={"chosen_units"} 
-                            name="units"
-                            onChange={this.onChange}>
-                           {units}
-                        </select>
-
-                        {/* Expiration Date */}
-                        {/* */}<label for="month">Month</label>
-                        <input type="number"
-                            id="month"
-                            name="month"
-                            onChange={this.onChange}></input>
-                        <label for="day">Day</label>
-                        <input type="number"
-                            id="day"
-                            name="day"
-                            onChange={this.onChange}></input>
-                        <label for="year">Year</label>
-                        <input type="number"
-                            id="year"
-                            name="year"
-                            onChange={this.onChange}></input>                            
-
-
-                    </form>
+                    {/* Da body */}
+                    <Container>
+                        <Row>
+                            <Col>
+                                <ListGroup>
+                                    {items}
+                                </ListGroup>
+                            </Col>
+                            <Col>Item pane component</Col>
+                        </Row>
+                    </Container>
                 </Modal.Body>
                 <Modal.Footer>
                     <button variant="secondary" onClick={this.onHide}>
@@ -199,4 +144,4 @@ class AddItemPopup extends Component {
     }
 }
 
-export default AddItemPopup;
+export default ListCheckerPopup;

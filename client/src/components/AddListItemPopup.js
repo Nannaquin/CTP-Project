@@ -91,9 +91,6 @@ class AddListItemPopup extends Component {
             possible_units: [],
             amount: "",
             chosen_units: "",
-            month: "",
-            day: "",
-            year: ""
         });
 
     }
@@ -139,7 +136,8 @@ class AddListItemPopup extends Component {
                             name="amount"
                             placeholder="Amount"
                             onChange={this.onChange}
-                            pattern="[0-9]*"></input>
+                            pattern="[0-9]*"
+                            required></input>
 
                         {/* Units */}
                         <label for="units">Units</label>
@@ -148,26 +146,7 @@ class AddListItemPopup extends Component {
                             name="units"
                             onChange={this.onChange}>
                            {units}
-                        </select>
-
-                        {/* Expiration Date */}
-                        {/* */}<label for="month">Month</label>
-                        <input type="number"
-                            id="month"
-                            name="month"
-                            onChange={this.onChange}></input>
-                        <label for="day">Day</label>
-                        <input type="number"
-                            id="day"
-                            name="day"
-                            onChange={this.onChange}></input>
-                        <label for="year">Year</label>
-                        <input type="number"
-                            id="year"
-                            name="year"
-                            onChange={this.onChange}></input>                            
-
-
+                        </select>   
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
