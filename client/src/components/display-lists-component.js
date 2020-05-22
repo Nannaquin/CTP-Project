@@ -125,13 +125,18 @@ class ListDisplay extends Component {
     } else tabPanels = <TabPanel tabId={"empty"}>Start a Shopping List!</TabPanel>
     
     return (
-      <Tabs defaultTab="0" vertical>
-        <TabList>
-          <Tab tabFor="add-list" onClick={this.onCreateClick}> + </Tab>
-          {tabs}
-        </TabList>
-        {tabPanels}
-      </Tabs>
+      <div>
+        <div className="col-12 mb-4">
+          <h3 className="text-center mb-3">Shopping Lists</h3>
+        </div>
+        <Tabs defaultTab="0" className="table-center text-center" vertical>
+          <TabList>
+            <Tab tabFor="add-list" onClick={this.onCreateClick}> + </Tab>
+            {tabs}
+          </TabList>
+          {tabPanels}
+        </Tabs>
+      </div>
     );
   }
 }

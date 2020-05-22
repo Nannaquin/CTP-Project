@@ -2,10 +2,10 @@ import React, {
     Component, 
     //Link,
 } from 'react';
-
+import {Container, Row, Col} from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
-import SideBar from '../components/sidebar-component';
-import TopBar from '../components/topbar-component';
+
+import SideBar from '../components/new-sidebar-component';
 import TableDark from '../components/table-dark-component';
 import Loading from '../components/Loading';
 
@@ -58,15 +58,12 @@ export default class DashboardPage extends Component {
             }
 
         return (
-            <div>
-                <SideBar/>              {/* This is the side bar navbar component */}   
-                <TopBar/>               {/* This is the top bar navbar component it also contains the modal-component*/}    
-                <div className="mt-5">  
-                    <TableDark />   
-                </div>
-                
-                
-            </div>
+            <Container name="root-container" className="mt-3">
+                <Row name="root-row">
+                    <Col name="sidebar-col" xs={2}><SideBar/></Col>
+                    <Col name="page-col"><TableDark /></Col>
+                </Row>
+            </Container>
         );
     }
 }

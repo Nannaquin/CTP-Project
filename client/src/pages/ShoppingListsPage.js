@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
+import {Container, Row, Col} from 'react-bootstrap';
 import {withRouter} from 'react-router-dom';
-import SideBar from '../components/sidebar-component';
-import TopBar from '../components/topbar-component';
+import SideBar from '../components/new-sidebar-component';
 import ListDisplay from '../components/display-lists-component';
 
 import 'react-web-tabs/dist/react-web-tabs.css';
@@ -37,13 +37,12 @@ class ShoppingListsPage extends Component {
 
     render() {
         return(
-            <div>
-                <SideBar/>              {/* This is the side bar navbar component */}   
-                <TopBar/>               {/* This is the top bar navbar component it also contains the modal-component*/}    
-                <div className="mt-5">  
-                    <ListDisplay lists={this.state.lists} apiCall={this.apiCall} />
-                </div>
-            </div>
+            <Container name="root-container" className="mt-3">
+                <Row name="root-row">
+                    <Col name="sidebar-col" xs={2}><SideBar/></Col>
+                    <Col name="page-col"><ListDisplay lists={this.state.lists} apiCall={this.apiCall} /></Col>
+                </Row>
+            </Container>
             );
     }
 };

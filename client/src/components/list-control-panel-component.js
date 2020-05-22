@@ -51,6 +51,21 @@ class ListControlPanel extends Component {
       this.deleteList();
   }
 
+  onCloseOutClick = e => {
+    // just sending the ids
+    const ids = {
+      list_id: this.state.list_id,
+      user_id: localStorage.getItem('user_id')
+    }
+    axios.post('api/items/from-list', ids)
+    .then(res => {
+      this.refreshCallback();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
   render() {
     //console.log(this.state)
     const displayDate = new Date(this.state.dateStarted).toDateString().slice(4)
@@ -63,7 +78,7 @@ class ListControlPanel extends Component {
         <Row>
           <Col><Button variant="primary" onClick={this.handleShow}>Add Item</Button></Col>
           <Col><Button variant="secondary">Send</Button></Col>
-          <Col><Button variant="secondary">Close Out</Button></Col>
+          <Col><Button variant="secondary" onClick={this.onCloseOutClick}>Close Out</Button></Col>
           <Col><Button variant="secondary" onClick={this.onDeleteClick}>Delete</Button></Col>
           <AddListItemPopup updateCallback={this.updateCallback} 
                         show={this.state.show} 

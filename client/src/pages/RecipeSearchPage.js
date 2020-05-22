@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {Row, Col, Container} from 'react-bootstrap';
-import SideBar from '../components/sidebar-component';
-import TopBar from '../components/topbar-component';
-import DisplayRecipes from '../components/display-recipes-component';
 import axios from 'axios';
+
+import SideBar from '../components/new-sidebar-component';
+import DisplayRecipes from '../components/display-recipes-component';
+
+import '../css/search-page.css';
 
 // The recipe search page for the new API
 class RecipeSearchPage extends Component {
@@ -65,10 +67,10 @@ class RecipeSearchPage extends Component {
     render() {
         console.log(this.state.value);
         return(
-        <div>
-            <SideBar/>
-            <TopBar/>
-            <div className="mt-5 ml-5">
+            <Container name="root-container" className="mt-3">
+            <Row name="root-row">
+                <Col name="sidebar-col" xs={2}><SideBar/></Col>
+                <Col name="page-col">
                 <Container fluid>
                     <Row>
                         <Col>Find Your Next Meal!</Col>
@@ -82,7 +84,7 @@ class RecipeSearchPage extends Component {
                                     id="value" 
                                     name="value" 
                                     onChange={this.onChange}
-                                    className="form-control search-input text-light"/>
+                                    className="form-control search-input text-dark"/>
                             </Col>
                             <Col>
                                 <button type="button" onClick={this.onSubmit}>Search</button>
@@ -93,8 +95,10 @@ class RecipeSearchPage extends Component {
                         <DisplayRecipes recipes={this.state.recipes}  />
                     </Row>
                 </Container>
-            </div>
-        </div>
+                </Col>
+            </Row>
+            </Container>
+        
             );
     };
     

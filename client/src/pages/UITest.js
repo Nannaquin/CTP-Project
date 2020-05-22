@@ -18,8 +18,8 @@ class UITest extends Component {
         return(
                 <Container name="root-container">
                     <Row name="root-row">
-                        <Col name="sidebar-col" xs={3}><SideBar/></Col>
-                        <Col name="page-col">Text</Col>
+                        <Col name="sidebar-col" xs={2}><SideBar/></Col>
+                        <Col name="page-col" className="bg-dark">Text</Col>
                     </Row>
                 </Container>
         )

@@ -1,14 +1,36 @@
 const router = require('express').Router();
-//const { User_Items, Items, Users } = require('../models');
 const User = require('../models/User');
-//const Item = require('../models/Item');
-/* This may very well regard UserItems, not Items. Items is a reference table, UserItems is that fluid stuff. */
 
 
 router.get('/test', (req, res) => {
     console.log("Tester hit!")
     res.send("Hit!");
 });
+
+router.post('/from-list', (req, res) => {
+    const {user_id, list_id} = req.body;
+    User.findOne({_id: user_id}).then(res => {
+        if (!user) throw new Error("No user.")
+
+        let list = user.shopping_lists.id(list_id);
+        if (!list) throw new Error("No list");
+        let listItems = list.items;
+        const demoDate = new Date();
+        demoDate.setDate(demoDate.getDate() + 6);
+        for(item in listItems) {
+            item["expr_date"]= demoDate;
+            user.inventory.push(item);
+        }
+        list.remove();
+        user.save();
+        res.status(200);
+
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(400);
+    });
+})
 
 // Words
 // @route POST
@@ -18,19 +40,20 @@ router.get('/test', (req, res) => {
 //     name: {Type: String },
 //     amount: {Type: Number},
 //     units: {Type: String},
-//     expr_date: {Type: Date }
+//     expr_date: {Type: Date}
 // }
 // @desc  Creates a UserItem based upon supplied info
 router.post('/items', (req, res) => {
   
     console.log("Item POST: " + req.body)
     const {api_id, name, amount, units, expr_date} = req.body;
-    console.log(`ed(${expr_date}), typeof(${typeof(expr_date)})`)
-
 
     // Ensure User Exists
     User.findOne({_id: req.body.user_id})
     .then(user => {
+
+        const demoDate = new Date();
+        demoDate.setDate(demoDate.getDate() + 6);
       
         // Format data
         // Insert into inventory
@@ -39,7 +62,7 @@ router.post('/items', (req, res) => {
             name: name,
             amount: amount,
             units: units,
-            expr_date: expr_date
+            expr_date: demoDate
         })
         user.save()
     })
