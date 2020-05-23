@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 import SideBar from '../components/new-sidebar-component';
 import TableDark from '../components/table-dark-component';
+import PantryTable from '../components/display-pantry-component';
 import Loading from '../components/Loading';
 
 
@@ -61,7 +62,10 @@ export default class DashboardPage extends Component {
             <Container name="root-container" className="mt-3">
                 <Row name="root-row">
                     <Col name="sidebar-col" xs={2}><SideBar/></Col>
-                    <Col name="page-col"><TableDark /></Col>
+                    <Col name="page-col">
+                        {/*<TableDark />*/}
+                        <PantryTable />
+                    </Col>
                 </Row>
             </Container>
         );

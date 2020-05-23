@@ -9,21 +9,35 @@ router.get('/test', (req, res) => {
 
 router.post('/from-list', (req, res) => {
     const {user_id, list_id} = req.body;
-    User.findOne({_id: user_id}).then(res => {
+    User.findOne({_id: user_id}).then(user => {
         if (!user) throw new Error("No user.")
 
         let list = user.shopping_lists.id(list_id);
         if (!list) throw new Error("No list");
         let listItems = list.items;
+        //console.log(list)
+        //console.log(listItems)
         const demoDate = new Date();
         demoDate.setDate(demoDate.getDate() + 6);
-        for(item in listItems) {
-            item["expr_date"]= demoDate;
-            user.inventory.push(item);
+        for(let item of listItems) {
+            //console.log(`typeof: ${typeof(item)}`)
+            //item["expr_date"]= demoDate;  
+            //console.log(`item: ${item}`)  
+
+            const newItem = {
+                "api_id": item.api_id,
+                "name": item.name,
+                "amount": item.amount,
+                "units": item.units,
+                "expr_date": demoDate
+            };
+
+            user.inventory.push(newItem);
         }
+        console.log("Post Loop")
         list.remove();
         user.save();
-        res.status(200);
+        res.status(200).json({"msg": "Done"});
 
     })
     .catch(err => {

@@ -9,6 +9,7 @@ import '../css/ListDisplay.css';
 class ListControlPanel extends Component {
   constructor(props) {
     super(props);
+    console.log(props)
     this.state = {
       listId: this.props.listId,
       name: this.props.name,
@@ -54,12 +55,12 @@ class ListControlPanel extends Component {
   onCloseOutClick = e => {
     // just sending the ids
     const ids = {
-      list_id: this.state.list_id,
+      list_id: this.state.listId,
       user_id: localStorage.getItem('user_id')
     }
     axios.post('api/items/from-list', ids)
     .then(res => {
-      this.refreshCallback();
+      this.props.refreshCallback();
     })
     .catch(err => {
       console.log(err);

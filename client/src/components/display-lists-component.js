@@ -64,22 +64,6 @@ class ListDisplay extends Component {
           
       }
   }
-/*
-  getUserLists() {
-    axios.get('api/lists/lists', {
-      params: {user_id: localStorage.getItem('user_id')},
-      headers: {"authorization" : "bearer " + localStorage.getItem("token")}
-    })
-    .then(res => {
-      console.log(res.data);
-      this.setState({lists: res.data.lists});
-
-    })
-    .catch(err => {
-      console.log(err);
-    }); 
-
-  }*/
 
   componentDidMount() {
     this.props.apiCall();
