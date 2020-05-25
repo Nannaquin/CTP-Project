@@ -34,7 +34,7 @@ router.post('/from-list', (req, res) => {
 
             user.inventory.push(newItem);
         }
-        console.log("Post Loop")
+        //console.log("Post Loop")
         list.remove();
         user.save();
         res.status(200).json({"msg": "Done"});
@@ -175,14 +175,17 @@ router.patch('/items', (req, res) => {
 //     item_id: {Type: ObjectId}
 // }
 // @desc  Removes a given user item based upon usage (depletion), or expiration
-router.delete('/items', (req, res) => {
+router.delete('/item', (req, res) => {
     
     console.log("Item DELETE")
     const { user_id, item_id } = req.query;
 
     User.findOne({_id: user_id})
     .then(user => {
-        user.inventory.id(item_id).remove();
+        if (!user) throw new Error("No User Found by that Id");
+        let item = user.inventory.id(item_id);
+        if (!item) throw new Error("Item not in Inventory");
+        item.remove();
         user.save();
     })
     .then(r => {

@@ -44,7 +44,6 @@ class AddItemPopup extends Component {
             day: "",
             year: ""
         });
-        //console.log(this.state)
     }
     
     onChosenCallback = value => {
@@ -148,9 +147,9 @@ class AddItemPopup extends Component {
 
 
                         {/* Amount */}
-                        <label for="amount">Amount</label>
+                        {/*<label for="amount">Amount</label>*/}
                         <input type="text" 
-                            id={"amount"}
+                            id="amount"
                             name="amount"
                             placeholder="Amount"
                             onChange={this.onChange}
@@ -158,26 +157,34 @@ class AddItemPopup extends Component {
                             required></input>
 
                         {/* Units */}
-                        <label for="units">Units</label>
+                        {/*<label for="units">Units</label>*/}
                         <select value={this.state.chosen_units} 
-                            id={"chosen_units"} 
+                            placeholder="Units"
+                            id="chosen_units"
                             name="units"
                             onChange={this.onChange}>
                            {units}
                         </select>
 
                         {/* Expiration Date */}
-                        {/* */}<label for="month">Month</label>
+                        <input type="date"
+                        id="expr_date"></input>
+
+
+
+
+
+                        {/* <label for="month">Month</label>*/}
                         <input type="number"
                             id="month"
                             name="month"
                             onChange={this.onChange}></input>
-                        <label for="day">Day</label>
+                        {/*<label for="day">Day</label> */}
                         <input type="number"
                             id="day"
                             name="day"
                             onChange={this.onChange}></input>
-                        <label for="year">Year</label>
+                        {/*<label for="year">Year</label>*/}
                         <input type="number"
                             id="year"
                             name="year"

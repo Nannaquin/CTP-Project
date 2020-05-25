@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
-import {Row, Col, Container} from 'react-bootstrap';
+import {Row, Col, Container, Button} from 'react-bootstrap';
 import axios from 'axios';
 
 import SideBar from '../components/new-sidebar-component';
@@ -87,7 +87,7 @@ class RecipeSearchPage extends Component {
                                     className="form-control search-input text-dark"/>
                             </Col>
                             <Col>
-                                <button type="button" onClick={this.onSubmit}>Search</button>
+                                <Button variant="primary" onClick={this.onSubmit}>Search</Button>
                             </Col>
                         </form>
                     </Row>

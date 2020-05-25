@@ -1,26 +1,127 @@
 import React, {Component} from 'react';
 import {Link, withRouter, Redirect} from 'react-router-dom';
-import SideBar from '../components/sidebar-component';
-import TopBar from '../components/topbar-component';
+import {Row, Col, Container} from 'react-bootstrap';
+import axios from 'axios';
+
+
+import SideBar from '../components/new-sidebar-component';
+import DisplayRecipes from '../components/display-recipes-component';
+
 
 // The recipe search page for the new API
 class RecipeSuggestPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            test: ""
+            test: "",
+            recipes: []
         }
     };
 
+    componentDidMount() {
+       /* const values = this.apiCall();
+        if(values instanceof Promise) console.log("conditional works")
+
+        this.setState({
+            recipes: values
+        });  */
+        
+        const query = {
+            user_id: localStorage.getItem('user_id')
+            //value: this.state.value,
+            /*diet: this.state.diet,
+            cuisine: this.state.cuisine,
+            excludeIngredients: this.state.excludeIngredients,
+            intolerances: this.state.intolerances,
+            number: this.state.number,
+            type: this.state.type */
+        }
+
+        axios
+        .get("api/food/pantrySuggest", {
+            params: query
+        })
+        .then(res => {
+            console.log(res.data.results)
+            this.setState({
+                recipes: res.data.results   
+            });
+            //this.forceUpdate()
+        })
+        .catch(err => {
+            console.log(err)
+            console.log("Call Error");
+            this.setState({
+                recipes: []
+            })
+        });     
+
+
+    }
+
+    componentDidUpdate(prevState) {
+        console.log("cDU")
+        //if (this.state.recipes != prevState.recipes) this.forceUpdate();
+    }
+/*
+   / async apiCall() {
+        const query = {
+            user_id: localStorage.getItem('user_id')
+            //value: this.state.value,
+            //diet: this.state.diet,
+            //cuisine: this.state.cuisine,
+            //excludeIngredients: this.state.excludeIngredients,
+            //intolerances: this.state.intolerances,
+            //number: this.state.number,
+            type: this.state.type 
+        }
+
+        await axios
+        .get("api/food/pantrySuggest", {
+            params: query
+        })
+        .then(res => {
+            console.log("then api call")
+            //console.log(res.data);
+            return res.data;
+        })
+        .catch(err => {
+            console.log("Call Error");
+            return [];
+        });     
+
+
+    } */
+
     render() {
+        console.log("render")
+        console.log(this.state.recipes)
+        let displayElement = undefined;
+        if (this.state.recipes.length === 0) displayElement =(<div>One Moment...</div>)
+        else displayElement = ( <DisplayRecipes recipes={this.state.recipes}  />);
+        
+
         return(
-        <div>
-            <SideBar/>
-            <TopBar/>
-            <div className="mt-5">  
-                <p>Demo Text</p>
-            </div>
-        </div>
+            <Container name="root-container" className="mt-3">
+                <Row name="root-row">
+                    <Col name="sidebar-col" xs={2}><SideBar/></Col>
+                    <Col name="page-col">
+                        <Container fluid>
+                            <Row>
+                                <Col>Presenting, New Meals!</Col>
+                            </Row>
+                            <Row    >  
+                                <form className="search-item-form row align-items-center" onSubmit={this.onSubmit}>
+                                </form>
+                            </Row>
+                            <Row>
+                                {displayElement}
+                            </Row>
+                        </Container>
+                    </Col>
+                </Row>
+            </Container>
+        
             );
     };
     

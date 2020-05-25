@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome": "^1.1.8",
-    "@fortawesome/react-fontawesome": "^0.1.9",
     "axios": "^0.19.0",
     "react": "^16.10.1",
     "react-autosuggest": "^10.0.0",
