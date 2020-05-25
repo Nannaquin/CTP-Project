@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import { Redirect } from 'react-router-dom';
-import SideBar from '../components/sidebar-component';
-import TopBar from '../components/topbar-component';
 import Loading from '../components/Loading';
 import '../css/saved.css';
 
@@ -31,8 +29,7 @@ export default class aboutUsPage extends Component {
       return (
           <div>
            
-              <SideBar/>              {/* This is the side bar navbar component */}                     
-              <TopBar />              {/* This is the top bar component */}
+              Sidebar Top bar
               
               <div className="col-xl-10 col-lg-9 col-md-8 ml-auto py-2 mt-5 shadow-lg">
                   <h1>CTP 2019</h1>

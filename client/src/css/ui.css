@@ -1,0 +1,12 @@
+.page {
+    height: 100%;
+    padding-left: 0px !important;
+}
+
+.sidebar-col {
+    padding-right: 0px !important;
+}
+
+#root {
+    height: 100%;
+}

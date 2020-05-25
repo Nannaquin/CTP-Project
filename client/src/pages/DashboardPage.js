@@ -6,9 +6,10 @@ import {Container, Row, Col} from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 
 import SideBar from '../components/new-sidebar-component';
-import TableDark from '../components/table-dark-component';
 import PantryTable from '../components/display-pantry-component';
 import Loading from '../components/Loading';
+
+import "../css/ui.css";
 
 
 
@@ -59,11 +60,10 @@ export default class DashboardPage extends Component {
             }
 
         return (
-            <Container name="root-container" className="mt-3">
-                <Row name="root-row">
-                    <Col name="sidebar-col" xs={2}><SideBar/></Col>
-                    <Col name="page-col">
-                        {/*<TableDark />*/}
+            <Container fluid name="root-container">
+                <Row name="root-row" className="page">
+                    <SideBar/>
+                    <Col name="page-col" className="mt-3">
                         <PantryTable />
                     </Col>
                 </Row>

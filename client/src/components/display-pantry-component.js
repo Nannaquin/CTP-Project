@@ -118,43 +118,6 @@ class PantryTable extends Component {
         .then(res => { this.getUserIngredients(); })
         .catch(err => { console.log(err); });
     }
-    /*
-    Record({number, name, amount, units, expr_date, item_id}) {
-        // Set color of expiration date color before returning 
-    
-        const e_date = new Date(expr_date)
-        const displayDate = e_date.toDateString().slice(4)
-        const rightNow = new Date();
-    
-        let cn = "";
-        if(e_date > rightNow) {
-            cn = "text-white bg-succ    ess";
-        }
-        //else if(some concept for being close to expiration) color is something else; Yellow?
-        else if(e_date <= rightNow) {
-            cn = "text-white bg-danger";
-        } 
-    
-        
-        return(
-            <tr>
-                <td>{number}</td>
-                <td>{name}</td>
-                <td>{amount}</td>
-                <td>{units}</td>
-                <td className={cn}>{displayDate}</td>
-                <td> 
-                    <Dropdown> 
-                    <Dropdown.Toggle variant="secondary"></Dropdown.Toggle>
-                    <Dropdown.Menu>
-                        <Dropdown.Item>Edit</Dropdown.Item>
-                        <Dropdown.Item onClick={this.deleteItem(item_id)}>Delete</Dropdown.Item>
-                    </Dropdown.Menu>
-                    </Dropdown>
-                </td>
-            </tr>
-        );
-    } */
 
     render() {
 

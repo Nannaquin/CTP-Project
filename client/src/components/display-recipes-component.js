@@ -16,14 +16,13 @@ function makeMatchString(usedCount, missingCount) {
 
 function RecipeCard({id, title, imageUrl, sourceUrl, dishTypes, cuisines, diets, usedCount, missingCount}) {
     console.log(`c: ${cuisines}, dT: ${dishTypes}`)
-    //const cuisine = ( (cuisines != undefined && (cuisines.length != 0) ) 
-    //    ? makeListGroupItem(cuisines.toString()) : ""); 
+
     const cuisine = makeListGroupItem(
-        ( (cuisines != undefined && (cuisines.length != 0) ) ? cuisines.toString() : "Unavailable"));
-    const dishType = ( (dishTypes != undefined && (dishTypes.length != 0) ) 
+        ( (cuisines !== undefined && (cuisines.length !== 0) ) ? cuisines.toString() : "Unavailable"));
+    const dishType = ( (dishTypes !== undefined && (dishTypes.length !== 0) ) 
         ? makeListGroupItem(dishTypes[0]) : "");
     //const dietElem = (diets.length != 0 ? makeListGroupItem(diets.toString()) : "");
-    const matchElem = (usedCount != undefined ? 
+    const matchElem = (usedCount !== undefined ? 
         makeListGroupItem(makeMatchString(usedCount, missingCount)) : "");
 
 
@@ -85,34 +84,26 @@ class DisplayRecipes extends Component {
     recipeGrouping(results) {
         let groups = []; // What we will return, holds the groups of 3
 
-        while(results.length != 0) {
+        while(results.length !== 0) {
             groups.push(results.splice(0, 3));
         }
         return groups;
     }
 
-    /*
-    componentDidMount() {
-        console.log(`cDM, props.recipes: ${this.props.recipes}`)
-        const formattedRecipes = this.recipeGrouping(this.props.recipes);
-        this.setState({recipes: formattedRecipes});
-    } */
     componentDidUpdate(prevProps) {
-        if (this.props.recipes != prevProps.recipes ){//&& this.props.recipes != undefined) {
-            console.log(`now: ${this.props.recipes}, past: ${prevProps.recipes}`)
+        if (this.props.recipes !== prevProps.recipes ){//&& this.props.recipes != undefined) {
+            //console.log(`now: ${this.props.recipes}, past: ${prevProps.recipes}`)
             // Divide recipes into array of groups of 3, and give back to this.state
-            //const toFormat = this.props.recipes;//(!(this.props.recipes instanceof Array) ? [] : this.props.recipes);
-            console.log(this.props.recipes);
             const formattedRecipes = this.recipeGrouping(this.props.recipes);
             this.setState({recipes: formattedRecipes});
 
         }
     }
     render() {
-        console.log(this.state.recipes)
+        //console.log(this.state.recipes)
 
         let cards = ""; 
-        if (this.state.recipes.length != 0) {
+        if (this.state.recipes.length !== 0) {
             cards = this.state.recipes.map((group, ii) => {
                 return(<CardRow elements={group}
                     key={ii} />

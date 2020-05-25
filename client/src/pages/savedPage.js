@@ -3,8 +3,6 @@ import React, {
 } from 'react';
 
 import { Redirect } from 'react-router-dom';
-import SideBar from '../components/sidebar-component';
-import TopBar from '../components/topbar-component';
 import Loading from '../components/Loading';
 import Button from 'react-bootstrap/Button';
 import '../css/saved.css';
@@ -27,11 +25,11 @@ export default class savedPage extends Component {
         return (
             <div>
                 <section>
-                <SideBar/>              {/* This is the side bar navbar component */}   
+                Sidebar 
                 
                 <div className="container-fluid justify-content-center text-white">
                     <div className="row mb-4 py-3">
-                        <TopBar />              {/* This is the top bar component */} 
+                        TopBar
                     </div>
                     <div className="row comingSoonBanners">
                         <div className="col-xl-10 col-lg-9 col-md-8 py-2 mt-4 bg-warning shadow-lg">

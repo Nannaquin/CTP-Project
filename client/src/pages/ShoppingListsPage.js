@@ -5,6 +5,8 @@ import SideBar from '../components/new-sidebar-component';
 import ListDisplay from '../components/display-lists-component';
 
 import 'react-web-tabs/dist/react-web-tabs.css';
+import "../css/ui.css";
+
 
 import axios from 'axios';
 
@@ -37,10 +39,12 @@ class ShoppingListsPage extends Component {
 
     render() {
         return(
-            <Container name="root-container" className="mt-3">
-                <Row name="root-row">
-                    <Col name="sidebar-col" xs={2}><SideBar/></Col>
-                    <Col name="page-col"><ListDisplay lists={this.state.lists} apiCall={this.apiCall} /></Col>
+            <Container fluid name="root-container">
+                <Row name="root-row" className="page">
+                    <SideBar/>
+                    <Col name="page-col" className="mt-3">
+                        <ListDisplay lists={this.state.lists} apiCall={this.apiCall} />
+                    </Col>
                 </Row>
             </Container>
             );

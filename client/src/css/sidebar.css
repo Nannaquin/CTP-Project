@@ -1,3 +1,12 @@
 #logo {
     font-size: x-large;
 }
+
+.sidebar-col {
+    padding-right: 0px !important;
+}
+
+#logo-img {
+    width: 100%;
+    background-color:rgba(255,255,255,0.05);
+}

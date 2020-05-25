@@ -7,6 +7,7 @@ import SideBar from '../components/new-sidebar-component';
 import DisplayRecipes from '../components/display-recipes-component';
 
 import '../css/search-page.css';
+import "../css/ui.css";
 
 // The recipe search page for the new API
 class RecipeSearchPage extends Component {
@@ -67,36 +68,36 @@ class RecipeSearchPage extends Component {
     render() {
         console.log(this.state.value);
         return(
-            <Container name="root-container" className="mt-3">
-            <Row name="root-row">
-                <Col name="sidebar-col" xs={2}><SideBar/></Col>
-                <Col name="page-col">
-                <Container fluid>
-                    <Row>
-                        <Col>Find Your Next Meal!</Col>
-                    </Row>
-                    <Row>  
-                        <form className="search-item-form row align-items-center" onSubmit={this.onSubmit}>
+            <Container fluid name="root-container">
+                <Row name="root-row" className="page">
+                    <SideBar/>
+                    <Col name="page-col" className="mt-3">
+                        <Container fluid>
+                            <Row>
+                                <Col>Find Your Next Meal!</Col>
+                            </Row>
+                            <Row>  
+                                <form className="search-item-form row align-items-center" onSubmit={this.onSubmit}>
 
-                            {/* Search Term */}
-                            <Col>
-                                <input type="text" 
-                                    id="value" 
-                                    name="value" 
-                                    onChange={this.onChange}
-                                    className="form-control search-input text-dark"/>
-                            </Col>
-                            <Col>
-                                <Button variant="primary" onClick={this.onSubmit}>Search</Button>
-                            </Col>
-                        </form>
-                    </Row>
-                    <Row>
-                        <DisplayRecipes recipes={this.state.recipes}  />
-                    </Row>
-                </Container>
-                </Col>
-            </Row>
+                                    {/* Search Term */}
+                                    <Col>
+                                        <input type="text" 
+                                            id="value" 
+                                            name="value" 
+                                            onChange={this.onChange}
+                                            className="form-control search-input text-dark"/>
+                                    </Col>
+                                    <Col>
+                                        <Button variant="primary" onClick={this.onSubmit}>Search</Button>
+                                    </Col>
+                                </form>
+                            </Row>
+                            <Row>
+                                <DisplayRecipes recipes={this.state.recipes}  />
+                            </Row>
+                        </Container>
+                    </Col>
+                </Row>
             </Container>
         
             );
