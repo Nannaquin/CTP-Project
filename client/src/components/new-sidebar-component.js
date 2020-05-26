@@ -24,13 +24,18 @@ class SideBar extends Component {
                                 alt="Perfect Pantry Logo" />
                         </Link>
                     </Row>  
-                    <Row>{/* Username, Logout */}
-                        <Col>Username</Col>
-                        <Col><HandleSignOutModal /></Col>
-                    </Row>
+
                     <Row>
                         <Table striped bordered className="table-dark">
                             <tbody>
+                                <tr>
+                                    <td>
+                                        <Row>{/* Username, Logout */}
+                                            <Col>Username</Col>
+                                            <Col><HandleSignOutModal /></Col>
+                                        </Row>
+                                    </td>
+                                </tr>
                                 <tr><td> <Link to="/shopping-lists">Shopping Lists</Link> </td></tr>
                                 <tr><td> <Link to="/dashboard">Pantry</Link> </td></tr>
                                 <tr><td> <Link to="/recipe-search">Search Recipes</Link> </td></tr>

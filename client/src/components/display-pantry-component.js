@@ -20,7 +20,7 @@ deleteItem = (item_id) => {
     });
 } */
 
-function Record({number, name, amount, units, expr_date, deleteItem, item_id}) {
+function Record({name, amount, units, expr_date, deleteItem, item_id}) {
     // Set color of expiration date color before returning 
 
     const e_date = new Date(expr_date)
@@ -28,18 +28,12 @@ function Record({number, name, amount, units, expr_date, deleteItem, item_id}) {
     const rightNow = new Date();
 
     let cn = "";
-    if(e_date > rightNow) {
-        cn = "text-white bg-success";
-    }
+    if(e_date > rightNow) { cn = "text-white bg-success"; }
     //else if(some concept for being close to expiration) color is something else; Yellow?
-    else if(e_date <= rightNow) {
-        cn = "text-white bg-danger";
-    } 
-
+    else if(e_date <= rightNow) { cn = "text-white bg-danger"; } 
     
     return(
         <tr>
-            <td>{number}</td>
             <td>{name}</td>
             <td>{amount}</td>
             <td>{units}</td>
@@ -124,8 +118,7 @@ class PantryTable extends Component {
         let it = undefined;
         if (this.state.ingredients.length != 0) {
             it = this.state.ingredients.map((record, ii) => {
-                return(<Record number={record.number}
-                                name={record.name}
+                return(<Record name={record.name}
                                 amount={record.amount}
                                 units={record.units}
                                 expr_date={record.expr_date}
@@ -137,7 +130,7 @@ class PantryTable extends Component {
         
         return (
             <div>
-                <div className="col-xl-10 col-lg-9 col-md-8 ml-auto">
+                <Col xl={10} lg={9} md={8}>
                     <div className="col-12 mb-4">
                         <h3 className="text-center mb-3">Current Inventory</h3>
                     </div>
@@ -148,7 +141,6 @@ class PantryTable extends Component {
                             <thead>
  
                                 <tr className="text-muted">
-                                    <th>#</th>{/* 03/06/20: Unsure if this is necessary to display. */ }
                                     <th>Name</th>
                                     <th>Amount</th>
                                     <th>Units</th>
@@ -167,7 +159,7 @@ class PantryTable extends Component {
                     <AddItemPopup updateCallback={this.updateCallback} 
                         show={this.state.show} 
                         onHide={this.handleShow}/>
-                </div>
+                </Col>
             </div>
        );
     }

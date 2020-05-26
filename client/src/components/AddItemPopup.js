@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal} from "react-bootstrap";
+import {Modal, Container, Row, Col} from "react-bootstrap";
 import AutosuggestComponent from './autosuggest-component';
 import axios from 'axios';
 
@@ -24,14 +24,13 @@ class AddItemPopup extends Component {
             amount: "",
             chosen_units: "",
             //expr_date: ""
-            month: today.getMonth() + 1,
+           /* month: today.getMonth() + 1,
             day: today.getDate(),
-            year: today.getFullYear()
+            year: today.getFullYear() */
+            expr_date: today.toISOString().substring(0, 10)
         };
     }
-    componentWillMount() {
-        console.log(this.state)
-    }
+
 
     componentWillUnmount() {
         this.setState({
@@ -74,10 +73,14 @@ class AddItemPopup extends Component {
 
     onSubmit = e => {
         e.preventDefault();
+        /*
         const finalDate = new Date(
             this.state.year,
             this.state.month - 1,
-            this.state.day);
+            this.state.day); */
+        const finalDate = new Date(
+            this.state.expr_date
+        )
 
         console.log(`${finalDate} is a ${typeof(finalDate)}`)
 
@@ -137,60 +140,41 @@ class AddItemPopup extends Component {
                 <Modal.Body>
 
                     <form className="add-item-form" onSubmit={this.onSubmit}>
-
-                        <AutosuggestComponent 
-                            className="form-control rounded-pill form-control-lg" 
-                            placeholderText={"Start typing your item..."}
-                            apiCall={this.apiCallback}
-                            onChosenCallback={this.onChosenCallback}
-                            />
-
-
-                        {/* Amount */}
-                        {/*<label for="amount">Amount</label>*/}
-                        <input type="text" 
-                            id="amount"
-                            name="amount"
-                            placeholder="Amount"
-                            onChange={this.onChange}
-                            pattern="[0-9]*"
-                            required></input>
-
-                        {/* Units */}
-                        {/*<label for="units">Units</label>*/}
-                        <select value={this.state.chosen_units} 
-                            placeholder="Units"
-                            id="chosen_units"
-                            name="units"
-                            onChange={this.onChange}>
-                           {units}
-                        </select>
-
-                        {/* Expiration Date */}
-                        <input type="date"
-                        id="expr_date"></input>
-
-
-
-
-
-                        {/* <label for="month">Month</label>*/}
-                        <input type="number"
-                            id="month"
-                            name="month"
-                            onChange={this.onChange}></input>
-                        {/*<label for="day">Day</label> */}
-                        <input type="number"
-                            id="day"
-                            name="day"
-                            onChange={this.onChange}></input>
-                        {/*<label for="year">Year</label>*/}
-                        <input type="number"
-                            id="year"
-                            name="year"
-                            onChange={this.onChange}></input>                            
-
-
+                        <Container>
+                            <Row>
+                                <AutosuggestComponent 
+                                className="form-control rounded-pill form-control-lg" 
+                                placeholderText={"Start typing your item..."}
+                                apiCall={this.apiCallback}
+                                onChosenCallback={this.onChosenCallback}
+                                />
+                            </Row>
+                            <Row>
+                                <input type="text" 
+                                    id="amount"
+                                    name="amount"
+                                    placeholder="Amount"
+                                    onChange={this.onChange}
+                                    pattern="[0-9]*"
+                                    required>
+                                </input>
+                                <select value={this.state.chosen_units} 
+                                    placeholder="Units"
+                                    id="chosen_units"
+                                    name="units"
+                                    onChange={this.onChange}>
+                                    {units}
+                                </select>   
+                            </Row>
+                            <Row>
+                                <input type="date"
+                                    id="expr_date"
+                                    name="expr_date"
+                                    value={this.state.expr_date}
+                                    onChange={this.onChange}>
+                                </input>
+                            </Row>
+                        </Container>                      
                     </form>
                 </Modal.Body>
                 <Modal.Footer>

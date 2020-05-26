@@ -31,7 +31,7 @@ function ItemRow({name, amount, units}) {
 function ListPanel({items, name, dateStarted, pos, listId, deleteCallback, refreshCallback}) {
   const tId = pos;
   let rows = undefined;
-  if(items.length != 0) {
+  if(items.length !== 0) {
     rows = items.map((item, ii) => {
       return(<ItemRow name={item.name}
               amount={item.amount}
@@ -69,7 +69,7 @@ class ListDisplay extends Component {
     this.props.apiCall();
   }
   componentDidUpdate(prevProps) {
-    if (this.props.lists != prevProps.lists) {
+    if (this.props.lists !==  prevProps.lists) {
       this.setState({lists: this.props.lists});
     }
   }
@@ -93,7 +93,7 @@ class ListDisplay extends Component {
 
     let tabs = undefined;
     let tabPanels = undefined;
-    if (this.state.lists.length != 0) {
+    if (this.state.lists.length !== 0) {
       tabs = this.state.lists.map((list, ii) => {
         return(<Tab tabFor={ii.toString()} key={ii}> {ii} </Tab>);
       });
