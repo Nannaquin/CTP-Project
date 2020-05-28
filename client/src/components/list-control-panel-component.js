@@ -26,21 +26,18 @@ class ListControlPanel extends Component {
   }
   
   handleShow = () => {
-    console.log("HANDLE SHOW")
       this.setState({
           show: !this.state.show
       })
   }
 
   deleteList() {
-    console.log("Delete List Call")
     axios.delete('api/lists/list', {
         params: {user_id: localStorage.getItem('user_id'),
                 list_id: this.props.listId},
         headers: {"authorization" : "bearer " + localStorage.getItem("token")}
       })
       .then(res => {
-        console.log("Post List Delete");
         this.props.refreshCallback();
       })
       .catch(err => {
@@ -68,15 +65,14 @@ class ListControlPanel extends Component {
   }
 
   render() {
-    //console.log(this.state)
     const displayDate = new Date(this.state.dateStarted).toDateString().slice(4)
     return(
       <Container>
-        <Row>
-          <Col>Name: {this.state.name}</Col>
-          <Col>Date Started: {displayDate}</Col>
+        <Row className="justify-content-center">
+          <Col><p className="font-weight-bold">Name: {this.state.name}</p></Col>
+          <Col><p className="font-weight-bold">Date Started: {displayDate}</p></Col>
         </Row>
-        <Row>
+        <Row className="justify-content-center">
           <Col><Button variant="primary" onClick={this.handleShow}>Add Item</Button></Col>
           <Col><Button variant="secondary">Send</Button></Col>
           <Col><Button variant="secondary" onClick={this.onCloseOutClick}>Close Out</Button></Col>

@@ -113,7 +113,7 @@ class ListDisplay extends Component {
         <div className="col-12 mb-4">
           <h3 className="text-center mb-3">Shopping Lists</h3>
         </div>
-        <Tabs defaultTab="0" className="table-center text-center" vertical>
+        <Tabs defaultTab="0" className="justify-content-center" vertical>
           <TabList>
             <Tab tabFor="add-list" onClick={this.onCreateClick}> + </Tab>
             {tabs}

@@ -14,7 +14,7 @@ class SignUpPage extends Component {
             password2: '',
             success: false,
             error: false,
-            errmsg: ''
+            errmsg: ''  
         };
     }
 
@@ -72,7 +72,7 @@ class SignUpPage extends Component {
                     <form className="login-form text-center">
                     
                         <h1 className="mb-5 font-weight-light text-uppercase">Sign Up</h1>
-
+                        <span>Conditions for Username and Password are shown when cursor is hovered over them.</span>   
                         <span className="red-text">
                             {error_text}
                         </span>
@@ -92,7 +92,9 @@ class SignUpPage extends Component {
                             className="form-control rounded-pill form-control-lg" 
                             onChange={this.onChange}
                             value={this.state.name}
-                            placeholder="Username"/>
+                            placeholder="Username"
+                            data-toggle="tooltip"
+                            title="Must be between 6 and 20 characters"/>
                         </div>
 
                         <div className="form-group">
@@ -101,7 +103,9 @@ class SignUpPage extends Component {
                             className="form-control rounded-pill form-control-lg"
                             onChange={this.onChange}
                             value={this.state.password} 
-                            placeholder="Password"/>
+                            placeholder="Password"
+                            data-toggle="tooltip"
+                            title="Must be between 8 and 30 characters, with one lowercase, one uppercase, and one numeric character"/>
                         </div>
 
                         <div className="form-group">

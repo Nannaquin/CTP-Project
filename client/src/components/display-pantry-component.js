@@ -129,38 +129,40 @@ class PantryTable extends Component {
         } else it = (<tr><td>No items recorded yet.</td></tr>)
         
         return (
-            <div>
-                <Col xl={10} lg={9} md={8}>
-                    <div className="col-12 mb-4">
-                        <h3 className="text-center mb-3">Current Inventory</h3>
-                    </div>
- 
-                    <form id="Ingredients">     {/* <------  This id is very VERY IMPORTANT!!!!!! */}
-                         
-                        <Table striped bordered className="table table-dark table-hover table-center text-center">
-                            <thead>
- 
-                                <tr className="text-muted">
-                                    <th>Name</th>
-                                    <th>Amount</th>
-                                    <th>Units</th>
-                                    <th>Expiration Date</th>
-                                    <th>Options</th>
-                                </tr>
- 
-                            </thead>         
-                            <tbody>
-                                {it}
-                            </tbody>
-                        </Table>
- 
-                    </form>
-                    <Button variant="primary" className="mx-auto" onClick={this.handleShow}>Add Item</Button>
-                    <AddItemPopup updateCallback={this.updateCallback} 
-                        show={this.state.show} 
-                        onHide={this.handleShow}/>
-                </Col>
-            </div>
+            <Container fluid>
+                <Row>
+                    <Col xl={10} lg={9} md={8}>
+                        <div className="mb-4">
+                            <h3 className="text-center mb-3">Current Inventory</h3>
+                        </div>
+    
+                        <form id="Ingredients">     {/* <------  This id is very VERY IMPORTANT!!!!!! */}
+                            
+                            <Table striped bordered className="table table-dark table-hover text-center">
+                                <thead>
+    
+                                    <tr className="text-muted">
+                                        <th>Name</th>
+                                        <th>Amount</th>
+                                        <th>Units</th>
+                                        <th>Expiration Date</th>
+                                        <th>Options</th>
+                                    </tr>
+    
+                                </thead>         
+                                <tbody>
+                                    {it}
+                                </tbody>
+                            </Table>
+    
+                        </form>
+                        <Button variant="primary" className="mx-auto" onClick={this.handleShow}>Add Item</Button>
+                        <AddItemPopup updateCallback={this.updateCallback} 
+                            show={this.state.show} 
+                            onHide={this.handleShow}/>
+                    </Col>
+                </Row>
+            </Container>
        );
     }
 }
